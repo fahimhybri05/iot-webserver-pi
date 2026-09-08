@@ -1,0 +1,22 @@
+[Unit]
+Description=PL Connect (Raspberry Pi I/O web server)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+# Adjust to wherever this repo is deployed on the Pi.
+WorkingDirectory=/opt/pl-connect
+Environment=PL_CONNECT_APPLY_NETWORK=1
+ExecStart=/opt/pl-connect/venv/bin/python -m app.main
+Restart=always
+RestartSec=1
+# root is the simple default - needed for port 80, /dev/gpiomem, /dev/serial0,
+# /dev/i2c-1, and NetworkManager (nmcli) access. To run unprivileged instead,
+# add the service user to the gpio/dialout/i2c groups, grant a polkit rule for
+# org.freedesktop.NetworkManager.*, and bind to a port >1024 behind a reverse
+# proxy instead of :80.
+User=root
+
+[Install]
+WantedBy=multi-user.target

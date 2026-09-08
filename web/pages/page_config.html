@@ -1,0 +1,20 @@
+
+<div class="sec-hd">
+  <div class="sec-title">Channel Configuration</div>
+  <div class="sec-line"></div>
+</div>
+
+<table class="cfg-table">
+  <thead>
+    <tr>
+      <th>Ch</th><th>Type</th><th>Label</th><th>Mode</th><th>Invert</th><th>GPIO</th>
+    </tr>
+  </thead>
+  <tbody id="cfg-tbody"></tbody>
+</table>
+
+<div style="display:flex;gap:10px;margin-top:14px">
+  <button class="save-btn" onclick="saveChannelConfig()">Save Configuration</button>
+  <button class="save-btn" style="background:var(--bg3);border-color:var(--border2);color:var(--text2)"
+          onclick="resetChannelDefaults()">Reset Defaults</button>
+</div>

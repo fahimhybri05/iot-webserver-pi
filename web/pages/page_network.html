@@ -1,0 +1,124 @@
+
+<div class="sec-hd">
+  <div class="sec-title">Network Settings</div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="net-form">
+  <div class="net-form-title">Wi-Fi</div>
+  <div class="form-row">
+    <span class="form-label">Enable Wi-Fi</span>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" id="wifi-enabled" onchange="toggleWifiSection()" style="width:16px;height:16px;cursor:pointer">
+      <span id="wifi-enabled-label" style="font-family:var(--font-mono);font-size:10px;color:var(--text3)">DISABLED</span>
+    </label>
+  </div>
+  <div id="wifi-fields-section">
+  <div class="form-row">
+    <span class="form-label">SSID</span>
+    <input id="wifi-ssid" class="cfg-input" value="">
+  </div>
+  <div class="form-row">
+    <span class="form-label">Password</span>
+    <input id="wifi-password" class="cfg-input" type="password" value="">
+  </div>
+  <div class="form-row">
+    <span class="form-label">IP Mode</span>
+    <select id="wifi-mode" class="cfg-select" onchange="toggleWifiFields()">
+      <option value="static">Static</option>
+      <option value="dhcp">DHCP</option>
+    </select>
+  </div>
+  <div id="wifi-static-fields">
+    <div class="form-row">
+      <span class="form-label">IP Address</span>
+      <input id="wifi-ip" class="cfg-input" value="">
+    </div>
+    <div class="form-row">
+      <span class="form-label">Subnet Mask</span>
+      <input id="wifi-subnet" class="cfg-input" value="255.255.255.0">
+    </div>
+    <div class="form-row">
+      <span class="form-label">Gateway</span>
+      <input id="wifi-gateway" class="cfg-input" value="">
+    </div>
+    <div class="form-row">
+      <span class="form-label">DNS (optional)</span>
+      <input id="wifi-dns" class="cfg-input" value="" placeholder="e.g. 8.8.8.8">
+    </div>
+  </div>
+  </div><!-- end wifi-fields-section -->
+  <button class="save-btn" onclick="saveWifiConfig()">Save Wi-Fi</button>
+</div>
+
+<div class="net-form">
+  <div class="net-form-title">LAN / Ethernet</div>
+  <div class="form-row">
+    <span class="form-label">IP Mode</span>
+    <select id="lan-mode" class="cfg-select" onchange="toggleLanFields()">
+      <option value="static">Static</option>
+      <option value="dhcp">DHCP</option>
+    </select>
+  </div>
+  <div id="lan-static-fields">
+    <div class="form-row">
+      <span class="form-label">IP Address</span>
+      <input id="lan-ip" class="cfg-input" value="">
+    </div>
+    <div class="form-row">
+      <span class="form-label">Subnet Mask</span>
+      <input id="lan-subnet" class="cfg-input" value="255.255.255.0">
+    </div>
+    <div class="form-row">
+      <span class="form-label">Gateway</span>
+      <input id="lan-gateway" class="cfg-input" value="">
+    </div>
+    <div class="form-row">
+      <span class="form-label">DNS (optional)</span>
+      <input id="lan-dns" class="cfg-input" value="" placeholder="e.g. 8.8.8.8">
+    </div>
+  </div>
+  <button class="save-btn" onclick="saveLanConfig()">Save LAN</button>
+</div>
+
+<div class="net-form">
+  <div class="net-form-title">Modbus TCP (read-only)</div>
+  <div class="form-row">
+    <span class="form-label">Enable Modbus</span>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" id="modbus-enabled" onchange="toggleModbusSection()" style="width:16px;height:16px;cursor:pointer">
+      <span id="modbus-enabled-label" style="font-family:var(--font-mono);font-size:10px;color:var(--text3)">DISABLED</span>
+    </label>
+  </div>
+  <div id="modbus-fields-section">
+    <div class="form-row"><span class="form-label">Port</span><input id="modbus-port" class="cfg-input" value="502"></div>
+    <div class="form-row"><span class="form-label">Unit ID</span><input id="modbus-unit" class="cfg-input" value="1"></div>
+    <div class="form-row"><span class="form-label">Status</span><span id="modbus-run-status" class="info-val amber">STOPPED</span></div>
+    <div style="font-family:var(--font-mono);font-size:9px;color:var(--text3);line-height:1.6;padding:6px 0">
+      Register map (read-only):<br>
+      Discrete inputs 0-9 = DI0-DI9<br>
+      Discrete inputs 10-11 = relay DO0, DO1<br>
+      Input regs 0-19 = 10 counters, 32-bit (2 regs each, low word first)
+    </div>
+  </div>
+  <button class="save-btn" onclick="saveModbusConfig()">Save Modbus</button>
+</div>
+
+<div class="net-form">
+  <div class="net-form-title">MQTT</div>
+  <div class="form-row">
+    <span class="form-label">Enable MQTT</span>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" id="mqtt-enabled" onchange="toggleMqttSection()" style="width:16px;height:16px;cursor:pointer">
+      <span id="mqtt-enabled-label" style="font-family:var(--font-mono);font-size:10px;color:var(--text3)">DISABLED</span>
+    </label>
+  </div>
+  <div id="mqtt-fields-section">
+    <div class="form-row"><span class="form-label">Broker</span><input id="mqtt-broker" class="cfg-input" value="broker.hivemq.com"></div>
+    <div class="form-row"><span class="form-label">Port</span><input id="mqtt-port" class="cfg-input" value="1883"></div>
+    <div class="form-row"><span class="form-label">Status topic</span><input id="mqtt-topic" class="cfg-input" value="esp32/status"></div>
+    <div class="form-row"><span class="form-label">Publish interval (ms)</span><input id="mqtt-interval" class="cfg-input" value="1000"></div>
+    <div class="form-row"><span class="form-label">Status</span><span id="mqtt-conn-status" class="info-val amber">DISCONNECTED</span></div>
+  </div>
+  <button class="save-btn" onclick="saveMqttConfig()">Save MQTT</button>
+</div>

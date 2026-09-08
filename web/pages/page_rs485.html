@@ -1,0 +1,87 @@
+
+<div class="sec-hd">
+  <div class="sec-title">RS485 / Modbus RTU Master — Live Values</div>
+  <div class="sec-line"></div>
+</div>
+
+<table class="cfg-table">
+  <thead>
+    <tr>
+      <th>Slave</th><th>Register</th><th>Value</th><th>Status</th><th>Last Update</th>
+    </tr>
+  </thead>
+  <tbody id="rtu-rows">
+    <tr><td colspan="5" style="text-align:center;color:var(--text3)">No data yet</td></tr>
+  </tbody>
+</table>
+
+<div class="net-form">
+  <div class="net-form-title">RS485 Bus Settings</div>
+  <div class="form-row">
+    <span class="form-label">Enable Modbus RTU Master</span>
+    <label style="display:flex;align-items:center;gap:8px;cursor:pointer">
+      <input type="checkbox" id="rtu-enabled" onchange="toggleRtuSection()" style="width:16px;height:16px;cursor:pointer">
+      <span id="rtu-enabled-label" style="font-family:var(--font-mono);font-size:10px;color:var(--text3)">DISABLED</span>
+    </label>
+  </div>
+  <div id="rtu-fields-section">
+    <div class="form-row">
+      <span class="form-label">Baud rate</span>
+      <input id="rtu-baud" class="cfg-input" value="9600">
+    </div>
+    <div class="form-row">
+      <span class="form-label">Parity</span>
+      <select id="rtu-parity" class="cfg-select">
+        <option value="0">None</option>
+        <option value="1">Odd</option>
+        <option value="2">Even</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <span class="form-label">Data bits</span>
+      <select id="rtu-data-bits" class="cfg-select">
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8" selected>8</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <span class="form-label">Stop bits</span>
+      <select id="rtu-stop-bits" class="cfg-select">
+        <option value="0" selected>1</option>
+        <option value="1">1.5</option>
+        <option value="2">2</option>
+      </select>
+    </div>
+    <div class="form-row">
+      <span class="form-label">Flow control</span>
+      <span style="font-family:var(--font-mono);font-size:9px;color:var(--text3)">
+        None — DE is a plain GPIO toggled around each transmit, not the UART's
+        hardware RTS line, so RTS/CTS flow control isn't available (and Modbus
+        RTU doesn't use flow control anyway).
+      </span>
+    </div>
+    <div class="form-row"><span class="form-label">Status</span><span id="rtu-run-status" class="info-val amber">STOPPED</span></div>
+  </div>
+</div>
+
+<div class="sec-hd">
+  <div class="sec-title">RS485 Slaves (up to 20)</div>
+  <div class="sec-line"></div>
+</div>
+
+<div style="font-family:var(--font-mono);font-size:9px;color:var(--text3);line-height:1.6;padding:2px 0 12px">
+  RS485 is half-duplex — one request at a time across all registers on all slaves,
+  always. Realistic interval budget grows with total register count (roughly 30-100 ms
+  per register at 9600 baud when healthy) — avoid setting a slave's poll interval far
+  below (its register count &times; ~50 ms), and raise the baud rate if your slaves
+  support it to fit more registers in a shorter cycle.
+</div>
+
+<div id="rtu-cfg-list"></div>
+
+<div style="display:flex;gap:10px;margin-top:14px">
+  <button class="save-btn" id="rtu-add-btn" onclick="addRtuSlaveRow()">+ Add Slave</button>
+  <button class="save-btn" onclick="saveRs485Config()">Save RS485 Configuration</button>
+</div>

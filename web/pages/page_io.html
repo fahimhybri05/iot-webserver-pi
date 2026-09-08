@@ -1,0 +1,28 @@
+
+<div class="sec-hd">
+  <div class="sec-title">Relay Outputs — DO0 · DO1</div>
+  <div class="sec-line"></div>
+  <div class="btn" onclick="allRelay('on')"  style="flex:none;padding:5px 12px;font-size:9px">All ON</div>
+  <div class="btn" onclick="allRelay('off')" style="flex:none;padding:5px 12px;font-size:9px;margin-left:6px">All OFF</div>
+</div>
+
+<div class="relay-grid" id="relay-grid"></div>
+
+<div class="sec-hd">
+  <div class="sec-title">Digital Inputs — DI0 · · · DI9</div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="di-section">
+  <div class="di-header">
+    <span>Channel</span><span>Label</span><span>State</span><span>Value</span><span>Mode</span><span>Count / Actions</span>
+  </div>
+  <div id="di-rows"></div>
+</div>
+
+<div class="sec-hd">
+  <div class="sec-title">Event Log</div>
+  <div class="sec-line"></div>
+  <div class="btn" onclick="clearLog()" style="flex:none;padding:5px 10px;font-size:9px">Clear</div>
+</div>
+<div class="log-box" id="log"></div>

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PLC</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">PL Connect</div>
+  <div class="model">10-ch DI &nbsp;/&nbsp; 2-ch Relay Output</div>
+  <div class="topbar-right">
+    <div class="status-pill"><div class="dot"></div>ONLINE</div>
+    <div id="ip-badge" class="ip-badge">—</div>
+    <div class="time-display" id="clock">--:--:--</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <div class="tab active" onclick="switchTab('io',this)">I/O Monitor</div>
+  <div class="tab" onclick="switchTab('config',this)">Channel Config</div>
+  <div class="tab" onclick="switchTab('network',this)">Network</div>
+  <div class="tab" onclick="switchTab('rs485',this)">RS485</div>
+  <div class="tab" onclick="switchTab('system',this)">System</div>
+</div>
+
+<div id="panel-io"      class="content panel active"></div>
+<div id="panel-config"  class="content panel"></div>
+<div id="panel-network" class="content panel"></div>
+<div id="panel-rs485"   class="content panel"></div>
+<div id="panel-system"  class="content panel"></div>
+
+<footer class="footer">
+  <span class="footer-ver" id="footer-ver">v—</span>
+  <span class="footer-sep">·</span>
+  <span class="footer-copy" id="footer-copy"></span>
+</footer>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <div class="modal-title">Pulse — <span id="modal-ch-label">DO0</span></div>
+    <label>Duration (ms)</label>
+    <input type="number" id="pulse-dur" value="500" min="50" max="10000">
+    <label>Repeat</label>
+    <input type="number" id="pulse-rep" value="1" min="1" max="20">
+    <label>Gap (ms)</label>
+    <input type="number" id="pulse-gap" value="200" min="50">
+    <div class="modal-btns">
+      <div class="btn" onclick="closeModal()">Cancel</div>
+      <div class="btn btn-on" onclick="runPulse()">Run Pulse</div>
+    </div>
+  </div>
+</div>
+
+<script src="/app.js"></script>
+</body>
+</html>

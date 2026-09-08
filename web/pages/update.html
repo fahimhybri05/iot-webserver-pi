@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PL Connect — Update</title>
+<link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">PL Connect</div>
+  <div class="model">Pull &amp; Restart</div>
+</div>
+
+<div class="content" style="max-width:520px">
+
+  <div class="net-form">
+    <div class="net-form-title">Update Source</div>
+    <div class="form-row">
+      <span class="form-label">Repo URL</span>
+      <input id="upd-repo-url" class="cfg-input" placeholder="https://github.com/owner/repo.git">
+    </div>
+    <div class="form-row">
+      <span class="form-label">Branch</span>
+      <input id="upd-branch" class="cfg-input" placeholder="main">
+    </div>
+    <div class="form-row">
+      <span class="form-label">Auth Method</span>
+      <select id="upd-auth-method" class="cfg-select" onchange="toggleAuthFields()">
+        <option value="none">None (public repo)</option>
+        <option value="token">HTTPS Token</option>
+        <option value="ssh_key">SSH Key</option>
+      </select>
+    </div>
+    <div id="upd-token-field" class="form-row" style="display:none">
+      <span class="form-label">Token</span>
+      <input id="upd-token" class="cfg-input" type="password" placeholder="leave blank to keep current">
+    </div>
+    <div id="upd-ssh-field" style="display:none">
+      <div class="form-row" style="grid-template-columns:1fr">
+        <span class="form-label">SSH Private Key <span id="upd-ssh-status" style="color:var(--text3)"></span></span>
+      </div>
+      <textarea id="upd-ssh-key" class="cfg-input" rows="5" style="font-size:10px;width:100%"
+                placeholder="-----BEGIN OPENSSH PRIVATE KEY-----&#10;...&#10;leave blank to keep current key"></textarea>
+    </div>
+    <div class="form-row">
+      <span class="form-label">Update Password</span>
+      <input id="upd-password" class="cfg-input" type="password" placeholder="leave blank to keep current">
+    </div>
+    <p style="font-size:0.688rem;color:var(--text3);line-height:1.5;margin:8px 0 12px">
+      Saving requires the current update password (same as the pull action below).
+      Token/SSH key/password fields are never sent back from the server once
+      saved — leave them blank to keep the stored value.
+    </p>
+    <button class="save-btn" onclick="saveUpdateConfig()">Save Update Source</button>
+  </div>
+
+  <div class="net-form">
+    <div class="net-form-title">Pull latest &amp; restart service</div>
+    <p style="font-size:0.75rem;color:var(--text2);line-height:1.6;margin-bottom:14px">
+      Fetches the configured branch from the configured repo and resets this
+      checkout to match it exactly (<code>git checkout -B &lt;branch&gt; origin/&lt;branch&gt;</code>),
+      then restarts the <code>pl-connect</code> service. Requires the update
+      password — same "casual-push deterrent, not real auth" spirit as the
+      original firmware's OTA gate.
+    </p>
+    <button class="save-btn" id="go-btn" onclick="runUpdate()">Pull &amp; Restart</button>
+    <p id="status" style="font-size:0.75rem;color:var(--text2);margin-top:12px"></p>
+  </div>
+
+  <a href="/" style="font-family:var(--font-mono);font-size:0.688rem;color:var(--text3)">&larr; back to dashboard</a>
+</div>
+
+<script>
+function toggleAuthFields(){
+  const method = document.getElementById('upd-auth-method').value;
+  document.getElementById('upd-token-field').style.display = method === 'token' ? 'grid' : 'none';
+  document.getElementById('upd-ssh-field').style.display = method === 'ssh_key' ? 'block' : 'none';
+}
+
+async function loadUpdateConfig(){
+  try {
+    const res = await fetch('/api/update-config');
+    if(!res.ok) return;
+    const cfg = await res.json();
+    document.getElementById('upd-repo-url').value = cfg.repo_url || '';
+    document.getElementById('upd-branch').value = cfg.branch || 'main';
+    document.getElementById('upd-auth-method').value = cfg.auth_method || 'none';
+    const bits = [];
+    if(cfg.token_set) bits.push('token stored');
+    if(cfg.ssh_key_set) bits.push('key stored');
+    document.getElementById('upd-ssh-status').textContent = bits.length ? '(' + bits.join(', ') + ')' : '';
+    toggleAuthFields();
+  } catch(e){ console.error('failed to load update config:', e); }
+}
+
+async function saveUpdateConfig(){
+  const pass = prompt('Enter update password to save these settings:');
+  if(pass === null) return;
+
+  const payload = {
+    repo_url: document.getElementById('upd-repo-url').value.trim(),
+    branch: document.getElementById('upd-branch').value.trim() || 'main',
+    auth_method: document.getElementById('upd-auth-method').value,
+    token: document.getElementById('upd-token').value,
+    ssh_key: document.getElementById('upd-ssh-key').value,
+    update_password: document.getElementById('upd-password').value,
+  };
+
+  const status = document.getElementById('status');
+  try {
+    const res = await fetch('/api/save-update-config', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json', 'X-OTA-Password': pass},
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json().catch(() => ({}));
+    if(res.ok){
+      status.textContent = 'Update source saved.';
+      document.getElementById('upd-token').value = '';
+      document.getElementById('upd-ssh-key').value = '';
+      document.getElementById('upd-password').value = '';
+    } else {
+      status.textContent = 'Failed: ' + (data.message || res.status);
+    }
+  } catch(e){
+    status.textContent = 'Save request failed.';
+  }
+}
+
+async function runUpdate(){
+  const pass = prompt('Enter update password:');
+  if(pass === null) return;
+  const btn = document.getElementById('go-btn');
+  const status = document.getElementById('status');
+  btn.disabled = true;
+  status.textContent = 'Pulling and restarting…';
+  try {
+    const res = await fetch('/update', {
+      method: 'POST',
+      headers: {'X-OTA-Password': pass},
+    });
+    const text = await res.text();
+    if(res.ok){
+      status.textContent = text + ' Reloading in 5s…';
+      setTimeout(() => location.href = '/', 5000);
+    } else {
+      status.textContent = 'Failed: ' + text;
+      btn.disabled = false;
+    }
+  } catch(e){
+    status.textContent = 'Request failed — service may already be restarting.';
+    btn.disabled = false;
+  }
+}
+
+loadUpdateConfig();
+</script>
+</body>
+</html>

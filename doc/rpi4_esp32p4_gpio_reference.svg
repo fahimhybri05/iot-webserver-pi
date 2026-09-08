@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1238" height="1064" viewBox="0 0 1238 1064" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTphOWNmYTYxNi03YmE1LTQ1MTItODgyMS1hOWFhNjMzMGVjYzMAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaG4v8jVZywrNPY5wUAzOm3EAAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoxZTg4MzRlMS03ZjE2LTQ2YTYtYTY3Yi0xNGIyYWZjYTE0NTJscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNoKewxp4R5IB06NS+nzbsWnwAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggMNrmohN5Da/VU6vCYzE2eYPSlT27bXvELtKeRAZXq5ekZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaIsuoaW54DyojQOijTYKlfoAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRNAAAAAAAAAAAAAAAAAGRoYXNoWCAvveWlAaJieG06BS26K0/Ka9sOhWiFOWuZPDcZG2zuTWRuYW1lbmp1bWJmIG1hbmlmZXN0amV4Y2x1c2lvbnOBomVzdGFydBjBZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOmE5Y2ZhNjE2LTdiYTUtNDUxMi04ODIxLWE5YWE2MzMwZWNjMy9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjc1YTI1NzMyLTJjYjktNDRhYi05NjMwLTdhMTViZDJiM2RkZHJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCAw2uaiE3kNr9VTq8JjMTZ5g9KVPbtte8Qu0p5EBlerl6JjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFgg1kdt9LHcC52/U3sfGpBUXe0DCeizRDQTIN5No448CBuiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggkEQBJP0iJqrbcsaMj69Lw7UNYuzRnRCBKERRNAc9Npd0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQMtqCxlMDGWwF6zeO/8SnaVLwIB8fv4ZwhwyqFwDb5nLtdVT0rzedEf/hfAdMpE7WMYbb7Vnzv5J091EwpFn+so=</c2pa:manifest></metadata>
+<rect x="0" y="0" width="1238" height="1064" fill="#FFFFFF"/>
+<text x="309.0" y="46.0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="800" fill="#1F1F1F" text-anchor="middle" dominant-baseline="middle">Raspberry Pi 4</text>
+<text x="309.0" y="116.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#6B6B6B" text-anchor="middle" dominant-baseline="middle" font-style="italic">40-pin header</text>
+<rect x="276.0" y="140.0" width="66.0" height="750.0" rx="10" ry="10" fill="#2B2B2B"/>
+<circle cx="295.8" cy="154.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="154.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="192.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="192.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="230.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="230.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="268.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="268.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="306.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="306.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="344.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="344.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="382.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="382.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="420.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="420.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="458.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="458.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="496.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="496.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="534.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="534.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="572.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="572.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="610.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="610.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="648.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="648.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="686.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="686.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="724.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="724.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="762.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="762.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="800.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="800.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="838.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="838.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="295.8" cy="876.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="322.2" cy="876.0" r="4.2" fill="#C9C9C9"/>
+<rect x="44.0" y="140.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F2B705"/>
+<text x="58.0" y="155.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1A1A1A" text-anchor="start" dominant-baseline="middle">3.3V</text>
+<rect x="240.0" y="140.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="155.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="348.0" y="140.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="155.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">2</text>
+<rect x="384.0" y="140.0" width="190.0" height="28.0" rx="6" ry="6" fill="#E8342A"/>
+<text x="398.0" y="155.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">5V</text>
+<rect x="44.0" y="178.0" width="190.0" height="28.0" rx="6" ry="6" fill="#29B6D8"/>
+<text x="58.0" y="193.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO2 (SDA)</text>
+<rect x="240.0" y="178.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="193.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">3</text>
+<rect x="348.0" y="178.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="193.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">4</text>
+<rect x="384.0" y="178.0" width="190.0" height="28.0" rx="6" ry="6" fill="#E8342A"/>
+<text x="398.0" y="193.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">5V</text>
+<rect x="44.0" y="216.0" width="190.0" height="28.0" rx="6" ry="6" fill="#29B6D8"/>
+<text x="58.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO3 (SCL)</text>
+<rect x="240.0" y="216.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">5</text>
+<rect x="348.0" y="216.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">6</text>
+<rect x="384.0" y="216.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="398.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="44.0" y="254.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="58.0" y="269.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO4</text>
+<rect x="240.0" y="254.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="269.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">7</text>
+<rect x="348.0" y="254.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="269.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">8</text>
+<rect x="384.0" y="254.0" width="190.0" height="28.0" rx="6" ry="6" fill="#9B6FD6"/>
+<text x="398.0" y="269.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO14 (TXD)</text>
+<rect x="44.0" y="292.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="58.0" y="307.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="240.0" y="292.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="307.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">9</text>
+<rect x="348.0" y="292.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="307.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">10</text>
+<rect x="384.0" y="292.0" width="190.0" height="28.0" rx="6" ry="6" fill="#9B6FD6"/>
+<text x="398.0" y="307.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO15 (RXD)</text>
+<rect x="44.0" y="330.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="58.0" y="345.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO17</text>
+<rect x="240.0" y="330.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="345.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">11</text>
+<rect x="348.0" y="330.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="345.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">12</text>
+<rect x="384.0" y="330.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="398.0" y="345.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO18</text>
+<rect x="44.0" y="368.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="58.0" y="383.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO27</text>
+<rect x="240.0" y="368.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="383.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">13</text>
+<rect x="348.0" y="368.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="383.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">14</text>
+<rect x="384.0" y="368.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="398.0" y="383.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="44.0" y="406.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="58.0" y="421.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO22</text>
+<rect x="240.0" y="406.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="421.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">15</text>
+<rect x="348.0" y="406.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="421.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">16</text>
+<rect x="384.0" y="406.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="398.0" y="421.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO23</text>
+<rect x="44.0" y="444.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F2B705"/>
+<text x="58.0" y="459.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1A1A1A" text-anchor="start" dominant-baseline="middle">3.3V</text>
+<rect x="240.0" y="444.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="459.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">17</text>
+<rect x="348.0" y="444.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="459.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">18</text>
+<rect x="384.0" y="444.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="398.0" y="459.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO24</text>
+<rect x="44.0" y="482.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="58.0" y="497.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO10 (MOSI)</text>
+<rect x="240.0" y="482.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="497.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">19</text>
+<rect x="348.0" y="482.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="497.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">20</text>
+<rect x="384.0" y="482.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="398.0" y="497.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="44.0" y="520.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="58.0" y="535.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO9 (MISO)</text>
+<rect x="240.0" y="520.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="535.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">21</text>
+<rect x="348.0" y="520.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="535.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">22</text>
+<rect x="384.0" y="520.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="398.0" y="535.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO25</text>
+<rect x="44.0" y="558.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="58.0" y="573.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO11 (SCLK)</text>
+<rect x="240.0" y="558.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="573.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">23</text>
+<rect x="348.0" y="558.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="573.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">24</text>
+<rect x="384.0" y="558.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="398.0" y="573.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO8 (CE0)</text>
+<rect x="44.0" y="596.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="58.0" y="611.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="240.0" y="596.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="611.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">25</text>
+<rect x="348.0" y="596.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="611.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">26</text>
+<rect x="384.0" y="596.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="398.0" y="611.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO7 (CE1)</text>
+<rect x="44.0" y="634.0" width="190.0" height="28.0" rx="6" ry="6" fill="#9E9E9E"/>
+<text x="58.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">Reserved</text>
+<rect x="240.0" y="634.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">27</text>
+<rect x="348.0" y="634.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">28</text>
+<rect x="384.0" y="634.0" width="190.0" height="28.0" rx="6" ry="6" fill="#9E9E9E"/>
+<text x="398.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">Reserved</text>
+<rect x="44.0" y="672.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="58.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO5</text>
+<rect x="240.0" y="672.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">29</text>
+<rect x="348.0" y="672.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">30</text>
+<rect x="384.0" y="672.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="398.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="44.0" y="710.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="58.0" y="725.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO6</text>
+<rect x="240.0" y="710.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="725.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">31</text>
+<rect x="348.0" y="710.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="725.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">32</text>
+<rect x="384.0" y="710.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="398.0" y="725.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO12</text>
+<rect x="44.0" y="748.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="58.0" y="763.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO13</text>
+<rect x="240.0" y="748.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="763.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">33</text>
+<rect x="348.0" y="748.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="763.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">34</text>
+<rect x="384.0" y="748.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="398.0" y="763.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="44.0" y="786.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="58.0" y="801.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO19 (MISO)</text>
+<rect x="240.0" y="786.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="801.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">35</text>
+<rect x="348.0" y="786.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="801.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">36</text>
+<rect x="384.0" y="786.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="398.0" y="801.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO16 (CE0)</text>
+<rect x="44.0" y="824.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F0872A"/>
+<text x="58.0" y="839.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO26</text>
+<rect x="240.0" y="824.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="839.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">37</text>
+<rect x="348.0" y="824.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="839.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">38</text>
+<rect x="384.0" y="824.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="398.0" y="839.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO20 (MOSI)</text>
+<rect x="44.0" y="862.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="58.0" y="877.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="240.0" y="862.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="255.0" y="877.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">39</text>
+<rect x="348.0" y="862.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="363.0" y="877.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">40</text>
+<rect x="384.0" y="862.0" width="190.0" height="28.0" rx="6" ry="6" fill="#D63AC7"/>
+<text x="398.0" y="877.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO21 (SCLK)</text>
+<text x="929.0" y="46.0" font-family="Arial, Helvetica, sans-serif" font-size="21" font-weight="800" fill="#1F1F1F" text-anchor="middle" dominant-baseline="middle">ESP32-P4-Module-DEV-KIT</text>
+<text x="929.0" y="116.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="400" fill="#6B6B6B" text-anchor="middle" dominant-baseline="middle" font-style="italic">40-pin header — pin numbers added for reference †</text>
+<rect x="896.0" y="140.0" width="66.0" height="750.0" rx="10" ry="10" fill="#2B2B2B"/>
+<circle cx="915.8" cy="154.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="154.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="192.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="192.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="230.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="230.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="268.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="268.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="306.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="306.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="344.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="344.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="382.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="382.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="420.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="420.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="458.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="458.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="496.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="496.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="534.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="534.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="572.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="572.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="610.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="610.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="648.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="648.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="686.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="686.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="724.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="724.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="762.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="762.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="800.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="800.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="838.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="838.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="915.8" cy="876.0" r="4.2" fill="#C9C9C9"/>
+<circle cx="942.2" cy="876.0" r="4.2" fill="#C9C9C9"/>
+<rect x="664.0" y="140.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F2B705"/>
+<text x="678.0" y="155.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1A1A1A" text-anchor="start" dominant-baseline="middle">3V3</text>
+<rect x="860.0" y="140.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="155.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">1</text>
+<rect x="968.0" y="140.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="155.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">2</text>
+<rect x="1004.0" y="140.0" width="190.0" height="28.0" rx="6" ry="6" fill="#E8342A"/>
+<text x="1018.0" y="155.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">5V</text>
+<rect x="664.0" y="178.0" width="190.0" height="28.0" rx="6" ry="6" fill="#29B6D8"/>
+<text x="678.0" y="193.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO7 (SDA)</text>
+<rect x="860.0" y="178.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="193.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">3</text>
+<rect x="968.0" y="178.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="193.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">4</text>
+<rect x="1004.0" y="178.0" width="190.0" height="28.0" rx="6" ry="6" fill="#E8342A"/>
+<text x="1018.0" y="193.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">5V</text>
+<rect x="664.0" y="216.0" width="190.0" height="28.0" rx="6" ry="6" fill="#29B6D8"/>
+<text x="678.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO8 (SCL)</text>
+<rect x="860.0" y="216.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">5</text>
+<rect x="968.0" y="216.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">6</text>
+<rect x="1004.0" y="216.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="1018.0" y="231.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="664.0" y="254.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="269.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO23</text>
+<rect x="860.0" y="254.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="269.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">7</text>
+<rect x="968.0" y="254.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="269.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">8</text>
+<rect x="1004.0" y="254.0" width="190.0" height="28.0" rx="6" ry="6" fill="#9B6FD6"/>
+<text x="1018.0" y="269.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO37 (TXD)</text>
+<rect x="664.0" y="292.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="678.0" y="307.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="860.0" y="292.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="307.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">9</text>
+<rect x="968.0" y="292.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="307.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">10</text>
+<rect x="1004.0" y="292.0" width="190.0" height="28.0" rx="6" ry="6" fill="#9B6FD6"/>
+<text x="1018.0" y="307.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO38 (RXD)</text>
+<rect x="664.0" y="330.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="345.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO21</text>
+<rect x="860.0" y="330.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="345.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">11</text>
+<rect x="968.0" y="330.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="345.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">12</text>
+<rect x="1004.0" y="330.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="345.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO22</text>
+<rect x="664.0" y="368.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="383.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO20</text>
+<rect x="860.0" y="368.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="383.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">13</text>
+<rect x="968.0" y="368.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="383.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">14</text>
+<rect x="1004.0" y="368.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="1018.0" y="383.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="664.0" y="406.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="421.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO6</text>
+<rect x="860.0" y="406.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="421.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">15</text>
+<rect x="968.0" y="406.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="421.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">16</text>
+<rect x="1004.0" y="406.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="421.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO5</text>
+<rect x="664.0" y="444.0" width="190.0" height="28.0" rx="6" ry="6" fill="#F2B705"/>
+<text x="678.0" y="459.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#1A1A1A" text-anchor="start" dominant-baseline="middle">3V3</text>
+<rect x="860.0" y="444.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="459.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">17</text>
+<rect x="968.0" y="444.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="459.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">18</text>
+<rect x="1004.0" y="444.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="459.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO4</text>
+<rect x="664.0" y="482.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="497.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO3</text>
+<rect x="860.0" y="482.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="497.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">19</text>
+<rect x="968.0" y="482.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="497.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">20</text>
+<rect x="1004.0" y="482.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="1018.0" y="497.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="664.0" y="520.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="535.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO2</text>
+<rect x="860.0" y="520.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="535.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">21</text>
+<rect x="968.0" y="520.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="535.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">22</text>
+<rect x="1004.0" y="520.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="535.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO1</text>
+<rect x="664.0" y="558.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="573.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO0</text>
+<rect x="860.0" y="558.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="573.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">23</text>
+<rect x="968.0" y="558.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="573.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">24</text>
+<rect x="1004.0" y="558.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="573.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO36</text>
+<rect x="664.0" y="596.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="678.0" y="611.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="860.0" y="596.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="611.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">25</text>
+<rect x="968.0" y="596.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="611.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">26</text>
+<rect x="1004.0" y="596.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="611.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO32</text>
+<rect x="664.0" y="634.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO24</text>
+<rect x="860.0" y="634.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">27</text>
+<rect x="968.0" y="634.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">28</text>
+<rect x="1004.0" y="634.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="649.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO25</text>
+<rect x="664.0" y="672.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO33</text>
+<rect x="860.0" y="672.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">29</text>
+<rect x="968.0" y="672.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">30</text>
+<rect x="1004.0" y="672.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="1018.0" y="687.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="664.0" y="710.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="725.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO26</text>
+<rect x="860.0" y="710.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="725.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">31</text>
+<rect x="968.0" y="710.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="725.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">32</text>
+<rect x="1004.0" y="710.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="725.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO54</text>
+<rect x="664.0" y="748.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="763.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO48</text>
+<rect x="860.0" y="748.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="763.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">33</text>
+<rect x="968.0" y="748.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="763.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">34</text>
+<rect x="1004.0" y="748.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="1018.0" y="763.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="664.0" y="786.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="801.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO53</text>
+<rect x="860.0" y="786.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="801.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">35</text>
+<rect x="968.0" y="786.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="801.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">36</text>
+<rect x="1004.0" y="786.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="801.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO46</text>
+<rect x="664.0" y="824.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="678.0" y="839.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO47</text>
+<rect x="860.0" y="824.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="839.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">37</text>
+<rect x="968.0" y="824.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="839.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">38</text>
+<rect x="1004.0" y="824.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="839.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO27</text>
+<rect x="664.0" y="862.0" width="190.0" height="28.0" rx="6" ry="6" fill="#1A1A1A"/>
+<text x="678.0" y="877.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="860.0" y="862.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="875.0" y="877.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">39</text>
+<rect x="968.0" y="862.0" width="30.0" height="28.0" rx="6" ry="6" fill="#D9D9D9"/>
+<text x="983.0" y="877.0" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" fill="#262626" text-anchor="middle" dominant-baseline="middle">40</text>
+<rect x="1004.0" y="862.0" width="190.0" height="28.0" rx="6" ry="6" fill="#4CAF3D"/>
+<text x="1018.0" y="877.0" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="700" fill="#FFFFFF" text-anchor="start" dominant-baseline="middle">GPIO45</text>
+<text x="44.0" y="936.0" font-family="Arial, Helvetica, sans-serif" font-size="12.5" font-weight="800" fill="#6B6B6B" text-anchor="start" dominant-baseline="middle" letter-spacing="1.5">LEGEND</text>
+<rect x="44.0" y="962.0" width="20.0" height="20.0" rx="5" ry="5" fill="#F2B705"/>
+<text x="74.0" y="972.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">3.3V</text>
+<rect x="260.0" y="962.0" width="20.0" height="20.0" rx="5" ry="5" fill="#E8342A"/>
+<text x="290.0" y="972.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">5V</text>
+<rect x="476.0" y="962.0" width="20.0" height="20.0" rx="5" ry="5" fill="#1A1A1A"/>
+<text x="506.0" y="972.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">GND</text>
+<rect x="692.0" y="962.0" width="20.0" height="20.0" rx="5" ry="5" fill="#29B6D8"/>
+<text x="722.0" y="972.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">I2C</text>
+<rect x="908.0" y="962.0" width="20.0" height="20.0" rx="5" ry="5" fill="#9B6FD6"/>
+<text x="938.0" y="972.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">UART</text>
+<rect x="44.0" y="996.0" width="20.0" height="20.0" rx="5" ry="5" fill="#D63AC7"/>
+<text x="74.0" y="1006.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">SPI (Pi only)</text>
+<rect x="260.0" y="996.0" width="20.0" height="20.0" rx="5" ry="5" fill="#F0872A"/>
+<text x="290.0" y="1006.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">GPIO — Pi</text>
+<rect x="476.0" y="996.0" width="20.0" height="20.0" rx="5" ry="5" fill="#4CAF3D"/>
+<text x="506.0" y="1006.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">GPIO — ESP32-P4</text>
+<rect x="692.0" y="996.0" width="20.0" height="20.0" rx="5" ry="5" fill="#9E9E9E"/>
+<text x="722.0" y="1006.5" font-family="Arial, Helvetica, sans-serif" font-size="13.5" font-weight="600" fill="#1F1F1F" text-anchor="start" dominant-baseline="middle">Reserved (Pi only)</text>
+</svg>

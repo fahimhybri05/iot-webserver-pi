@@ -1,0 +1,44 @@
+
+<div class="sec-hd">
+  <div class="sec-title">System Information</div>
+  <div class="sec-line"></div>
+</div>
+
+<div class="info-grid">
+  <div class="info-card">
+    <div class="info-card-title">Device</div>
+    <div class="info-row"><span class="info-key">Model</span><span class="info-val">Raspberry Pi 4</span></div>
+    <div class="info-row"><span class="info-key">Runtime</span><span class="info-val">Python / Flask</span></div>
+    <div class="info-row"><span class="info-key">Uptime</span><span class="info-val green" id="uptime">00:00:00</span></div>
+    <div class="info-row"><span class="info-key">Free heap</span><span class="info-val" id="heap">— KB</span></div>
+    <div class="info-row"><span class="info-key">CPU</span><span class="info-val">Broadcom BCM2711</span></div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-title">Network</div>
+    <div class="info-row"><span class="info-key">Ethernet IP</span><span id="network-ip" class="info-val">—</span></div>
+    <div class="info-row"><span class="info-key">WiFi IP</span><span id="wifi-ip-display" class="info-val">—</span></div>
+    <div class="info-row"><span class="info-key">WiFi</span><span id="wifi-status" class="info-val amber">DISCONNECTED</span></div>
+    <div class="info-row"><span class="info-key">Stack</span><span class="info-val">NetworkManager</span></div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-title">I/O Summary</div>
+    <div class="info-row"><span class="info-key">DI channels</span><span class="info-val">10</span></div>
+    <div class="info-row"><span class="info-key">Relay channels</span><span class="info-val">2</span></div>
+    <div class="info-row"><span class="info-key">DI HIGH</span><span class="info-val green" id="di-count">0 / 10</span></div>
+    <div class="info-row"><span class="info-key">Relays ON</span><span class="info-val" id="relay-count">0 / 2</span></div>
+    <div class="info-row"><span class="info-key">Total ops</span><span class="info-val" id="ops-count">0</span></div>
+  </div>
+
+  <div class="info-card">
+    <div class="info-card-title">Actions</div>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-top:4px">
+      <button class="save-btn" style="width:100%" onclick="rebootDevice()">Restart Service</button>
+      <button class="save-btn" style="width:100%;background:var(--bg3);border-color:var(--border2);color:var(--text2)"
+              onclick="location.href='/update'">Pull &amp; Restart</button>
+      <button class="save-btn" style="width:100%;background:var(--bg3);border-color:var(--border2);color:var(--text2)"
+              onclick="toastSave('Config exported')">Export Config JSON</button>
+    </div>
+  </div>
+</div>
