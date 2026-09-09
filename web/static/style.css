@@ -85,6 +85,23 @@ body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:1
 .log-ts{color:var(--text3);flex-shrink:0}
 .log-msg{color:var(--text2)}.log-msg.ok{color:var(--green)}.log-msg.warn{color:var(--amber)}.log-msg.err{color:var(--red)}
 
+/* ── rtu live-values scroll panel (keeps a 20-slave x 16-register live
+   table from stretching the whole page — sticky header stays visible
+   while the body scrolls) ── */
+.rtu-live-scroll{max-height:340px;overflow-y:auto;border:1px solid var(--border);border-radius:6px;margin-bottom:20px}
+.rtu-live-scroll .cfg-table{margin-bottom:0}
+.rtu-live-scroll thead th{position:sticky;top:0}
+
+/* ── rtu slave cards: collapsed-by-default accordion so a full 20-slave
+   config doesn't render as one giant expanded page ── */
+.rtu-slave-card{border:1px solid var(--border);border-radius:6px;background:var(--bg2);margin-bottom:10px;overflow:hidden}
+.rtu-slave-hd{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;user-select:none;transition:background .12s}
+.rtu-slave-hd:hover{background:var(--bg3)}
+.rtu-slave-chevron{font-size:0.625rem;color:var(--text3);width:10px;flex-shrink:0;text-align:center}
+.rtu-slave-title{font-family:var(--font-mono);font-size:0.563rem;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+.rtu-slave-meta{font-size:0.688rem;color:var(--text2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rtu-slave-body{padding:0 16px 16px;border-top:1px solid var(--border)}
+
 /* ── cfg table ── */
 .cfg-table{width:100%;border-collapse:collapse;margin-bottom:20px}
 .cfg-table th{font-family:var(--font-mono);font-size:0.5rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);text-align:left;padding:8px 10px;border-bottom:1px solid var(--border);background:var(--bg2)}
