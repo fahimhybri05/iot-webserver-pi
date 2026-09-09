@@ -5,6 +5,12 @@ modbus tcp -> rs485 -> oled -> apply saved channel config -> serve. (The C
 version calls http_server_start() earlier since it's non-blocking there;
 here Flask's app.run() is the blocking call, so it's kept last while every
 other module still runs in its own background thread, same net effect.)
+
+sd_notify.ready() fires right before that final blocking call - reaching it
+means every peripheral init above already returned (they're all
+individually failure-tolerant, so this is a meaningful "actually booted",
+not just "the process exists"). No firmware equivalent - the ESP32 has no
+supervisor process to notify.
 """
 import logging
 
@@ -17,6 +23,7 @@ from app import (
     mqtt_manager,
     network_manager,
     oled_display,
+    sd_notify,
 )
 
 
@@ -25,6 +32,8 @@ def main():
         level=logging.INFO, format="%(asctime)s %(name)s %(levelname)s %(message)s"
     )
     log = logging.getLogger("main")
+
+    sd_notify.start_watchdog()  # no-op unless the systemd unit sets WatchdogSec=
 
     sys_cfg = config.load_config()
 
@@ -47,6 +56,7 @@ def main():
         gpio_driver.set_di_invert(i, ch.get("invert", False))
 
     log.info("PL Connect (Raspberry Pi port) initialized")
+    sd_notify.ready()  # tells systemd (Type=notify) boot genuinely completed, not just forked
     http_server.start()  # blocking
 
 

@@ -31,13 +31,19 @@ def _display_loop(device):
 
     last_ip = None
     while True:
-        ip = network_manager.get_lan_ip()
-        if ip != last_ip:
-            last_ip = ip
-            with Image.new("1", device.size) as img:
-                draw = ImageDraw.Draw(img)
-                draw.text((0, 24), ip, fill=255)
-                device.display(img)
+        try:
+            ip = network_manager.get_lan_ip()
+            if ip != last_ip:
+                last_ip = ip
+                with Image.new("1", device.size) as img:
+                    draw = ImageDraw.Draw(img)
+                    draw.text((0, 24), ip, fill=255)
+                    device.display(img)
+        except Exception:
+            # A transient I2C error here shouldn't permanently kill IP
+            # display for the rest of the process's life - same
+            # never-abort spirit as init()'s own failure handling below.
+            log.exception("OLED display loop error - continuing")
         time.sleep(_POLL_PERIOD_S)
 
 

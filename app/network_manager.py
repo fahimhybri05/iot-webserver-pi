@@ -27,6 +27,7 @@ import os
 import re
 import subprocess
 import threading
+import time
 
 log = logging.getLogger("network")
 
@@ -105,7 +106,7 @@ def _netmask_to_prefix(mask):
         return 24
 
 
-def get_lan_ip():
+def _query_lan_ip():
     iface = _eth_iface()
     r = _run(["-g", "IP4.ADDRESS", "device", "show", iface])
     if r and r.returncode == 0 and r.stdout.strip():
@@ -113,12 +114,63 @@ def get_lan_ip():
     return "0.0.0.0"
 
 
-def get_wifi_ip():
+def _query_wifi_ip():
     iface = _wifi_iface()
     r = _run(["-g", "IP4.ADDRESS", "device", "show", iface])
     if r and r.returncode == 0 and r.stdout.strip():
         return r.stdout.strip().split("|")[0].split("/")[0]
     return ""
+
+
+# get_lan_ip()/get_wifi_ip() feed state.build_status_json(), which runs on
+# every REST /api/status call AND every WebSocket broadcast (any DI/relay
+# change) - potentially many times a second. Calling nmcli synchronously on
+# that hot path means spawning 1-2 subprocesses per status build, which both
+# wastes CPU on a Pi and adds scheduling jitter that competes with anything
+# else that cares about tight timing (e.g. the RS485 poll thread's
+# millisecond-level DE settle delays). An IP address changes on the order of
+# minutes, not milliseconds, so a background poll + cached read is strictly
+# better than querying live on every call.
+_NET_POLL_PERIOD_S = 2.0
+_net_cache_lock = threading.Lock()
+_cached_lan_ip = "0.0.0.0"
+_cached_wifi_ip = ""
+_net_poll_started = False
+
+
+def _net_poll_loop():
+    global _cached_lan_ip, _cached_wifi_ip
+    while True:
+        try:
+            lan_ip = _query_lan_ip()
+            wifi_ip = _query_wifi_ip()
+            with _net_cache_lock:
+                _cached_lan_ip = lan_ip
+                _cached_wifi_ip = wifi_ip
+        except Exception:
+            log.exception("network status poll failed - keeping last known values")
+        time.sleep(_NET_POLL_PERIOD_S)
+
+
+def _ensure_net_poll_started():
+    global _net_poll_started
+    with _lock:
+        if _net_poll_started:
+            return
+        _net_poll_started = True
+        threading.Thread(target=_net_poll_loop, name="net-status-poll", daemon=True).start()
+
+
+def get_lan_ip():
+    _ensure_net_poll_started()
+    with _net_cache_lock:
+        return _cached_lan_ip
+
+
+def get_wifi_ip():
+    _ensure_net_poll_started()
+    with _net_cache_lock:
+        return _cached_wifi_ip
 
 
 def is_wifi_connected():

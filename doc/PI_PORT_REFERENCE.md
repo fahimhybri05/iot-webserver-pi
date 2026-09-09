@@ -31,7 +31,11 @@ the two boards. The one place a Pi generation actually mattered: real
 RP1 I/O chip at all — fixed by switching to `rpi-lgpio` (§12), a drop-in
 replacement under the same `import RPi.GPIO` that works on both.
 
-Current version string (`app/state.py::FIRMWARE_VERSION`): **1.1.1**.
+Current version string (`app/state.py::FIRMWARE_VERSION`): **1.1.3**. This
+field is manually maintained — bump it in the same change whenever
+`app/state.py`'s `build_status_json()` shape, a REST endpoint, or a config
+schema changes, so the dashboard's footer and `/api/status` stay a useful
+signal of what's actually running on a given device.
 
 ---
 
@@ -49,6 +53,7 @@ iot-webserver-pi/
 │   ├── modbus_rtu_master.py — RS485 Modbus RTU master (port of modbus_rtu_manager.c)
 │   ├── network_manager.py   — LAN/Wi-Fi via nmcli (port of network.c + wifi_manager.c)
 │   ├── oled_display.py      — SSD1306 IP display (port of oled_display.c)
+│   ├── sd_notify.py         — systemd readiness/watchdog ping (no firmware equivalent)
 │   ├── state.py             — shared status JSON builder + WS broadcast hub
 │   └── updater.py           — git-based /update mechanism (no firmware equivalent)
 ├── web/
@@ -201,7 +206,8 @@ into REST/WS/MQTT automatically, same rule the firmware follows.
 ```json
 {
   "ip": "192.168.1.101", "wifi_ip": "", "wifi_connected": false,
-  "version": "1.1.1", "copyright": "...",
+  "version": "1.1.3", "copyright": "...",
+  "board_model": "Raspberry Pi 5 Model B Rev 1.0", "board_cpu": "Broadcom BCM2712",
   "relays": [false, false],
   "inputs": [false, ...×10],
   "counts": [0, ...×10],
@@ -254,13 +260,9 @@ Pi's UART has no such per-pin remap, so DE (GPIO23) is a **plain GPIO
 toggled manually** around each transaction:
 
 ```
-DE high → write → flush (block until OS write buffer is on the wire)
-  → sleep RTU_DE_SETTLE_S (2ms) → DE low → read response
+DE high → sleep RTU_DE_SETTLE_S → write → flush → sleep (computed, see below)
+  → DE low → discard self-echo → read response
 ```
-
-nRE (GPIO24) fixed low at init, never toggled — same as firmware (receiver
-always enabled; half-duplex framing alone prevents self-echo confusion since
-reads only start after the write is confirmed flushed).
 
 Framing is **hand-rolled** (`_crc16`, `_build_request`, `_transact`) rather
 than a library — chosen so the decode logic can mirror the firmware's traced
@@ -281,12 +283,58 @@ A slave's round is aggregate pass/fail: all its registers must succeed to
 mark `online=true` and update `values`; a slave goes `online=false` once
 stale beyond 3× its poll interval (same rule as firmware).
 
-**Known unverified item carried over from firmware development**
-(`RS485_MODBUS_RTU_CONTEX.md`): end-to-end RS485 comms was not yet confirmed
-against real hardware as of the firmware doc's last update — bench tests
-pointed at physical A/B wiring/continuity, not framing logic. If bringing
-this Pi port up on real hardware, budget time for the same class of
-wiring/continuity debugging before assuming a code bug.
+### Real-hardware bring-up findings (this port, not the firmware)
+
+Bench-tested against a pymodbus-based RTU slave simulator over a real
+USB-RS485 link. Three genuine bugs found and fixed, in the order they
+surfaced — worth reading in order if debugging a similar symptom again:
+
+1. **Self-echo, not wiring.** The original code's assumption — "nRE fixed
+   low, receiver always enabled; half-duplex framing alone prevents
+   self-echo confusion since reads only start after the write is confirmed
+   flushed" — was simply wrong. That reasoning describes the ESP32's
+   `UART_MODE_RS485_HALF_DUPLEX`, which suppresses self-reception **in
+   silicon**. Plain bit-banged GPIO DE has no such feature: with the
+   receiver always on, our own transmitted bytes land in the OS receive
+   buffer during TX, and since nothing discarded them, the *first* thing
+   `_transact()` read back after transmitting was its own request,
+   misparsed as a response. Symptom: every failure showed a "response"
+   whose address/function bytes exactly matched whatever was just
+   transmitted, and CRC always failed (the tail bytes aren't a real CRC for
+   that reinterpreted framing) — externally this looked like "polling
+   random slave IDs" and "100% CRC errors," which is what it took to
+   diagnose. **Fix:** `ser.reset_input_buffer()` a second time, right after
+   DE goes low, before listening for the real reply.
+2. **DE dropped mid-frame.** After the self-echo fix, real data got through
+   — but the simulator kept seeing frames truncated to a fraction of a full
+   8-byte request, with the captured "address" bytes always some power of
+   two (`0x21, 0x20, 0x10, 0x08, 0x01, 0x00` etc. — a live-corruption
+   signature, not noise). Root cause: `ser.flush()` (`tcdrain()`) is
+   supposed to block until the UART has *physically* finished clocking
+   every bit onto the wire, but this isn't reliable on every Linux
+   UART-driver combination — some report "drained" once the last byte
+   reaches the hardware FIFO, not once the FIFO has actually emptied. The
+   old fixed 2ms post-write settle before dropping DE was too close to an
+   8-byte frame's own ~4.2ms transmit time at 19200 baud to reliably cover
+   FIFO drain slop. **Fix:** compute the frame's actual nominal transmit
+   time from the real `ser.baudrate`/`bytesize`/`parity`/`stopbits`, and
+   wait at least that long (×1.25 margin) before dropping DE, instead of
+   trusting a flat guess.
+3. **No recovery from a genuinely broken port.** Under sustained polling,
+   the port eventually started raising `OSError` (`errno 5`, "Input/output
+   error") on every read/write, forever — a real UART/kernel-level fault
+   that doesn't self-clear. The poll loop had no way to tell this apart
+   from a normal Modbus-level failure (CRC mismatch, timeout), so it just
+   kept hammering a dead file descriptor. **Fix:** introduced
+   `RtuProtocolError` for expected Modbus-level failures (deliberately
+   *not* an `OSError` subclass, unlike Python's built-in `TimeoutError`,
+   which is one) so the poll loop can specifically catch `OSError`/
+   `serial.SerialException` and close+reopen the port, giving a transient
+   hardware fault a chance to actually clear.
+
+All three fixes are code-verified (compiles, unit-testable in isolation) but
+the *combination* was not re-confirmed end-to-end on real hardware after fix
+#3 landed — if picking this up again, that's the next thing to check.
 
 ---
 
@@ -441,14 +489,61 @@ Added after the initial port shipped Pi-4-only. What changed and why:
   access), `pymodbus` TCP slave — none of these go through the
   GPIO-register layer that differs between the two SoCs.
 
-## 13. Known gaps (as of this writing)
+## 13. Reliability & factory-deployment hardening
 
-- RS485 Modbus RTU: framing/decode logic is code-complete and mirrors the
-  firmware's traced behavior, but **not yet verified against real hardware
-  from this Python implementation specifically** (the firmware-side
-  verification gap in `RS485_MODBUS_RTU_CONTEX.md` is a different codebase's
-  test history — don't treat it as evidence this port works, only as a
-  pointer to where wiring problems tend to hide).
+Added in response to real operational issues surfaced while bench-testing
+RS485 (§7) — chasing intermittent hardware symptoms is much harder when the
+software itself has silent failure modes. All three items below are
+general-purpose hardening, not RS485-specific:
+
+- **`network_manager.py`: cached network status.** `get_lan_ip()`/
+  `get_wifi_ip()` used to shell out to `nmcli` synchronously on every call —
+  and they're called from `state.build_status_json()`, which runs on every
+  single `/api/status` request **and** every WebSocket broadcast (i.e. every
+  DI/relay change). Under active I/O this meant spawning `nmcli` subprocesses
+  many times a second, which both wastes CPU on a Pi and adds scheduling
+  jitter that competes with anything timing-sensitive elsewhere (the RS485
+  poll thread's millisecond-level DE settle delays, for one — this was
+  actually flooding the log during the §7 bring-up work). Now a background
+  thread (`_net_poll_loop`, 2s period) refreshes a cache; the getters just
+  read it. Side effect: also fixed a pre-existing race on `_iface_cache`
+  (only the single poll thread touches `nmcli` now, instead of every
+  concurrent Flask request thread).
+- **Crash-isolated background loops.** `gpio_driver._scan_loop`/
+  `_count_save_loop`, `oled_display._display_loop`,
+  `modbus_tcp_slave._sync_loop`, and `modbus_rtu_master`'s poll loop are all
+  long-lived `while True` threads. Before this pass, several of them had no
+  outer exception handling — one unhandled exception would silently kill
+  that subsystem's thread **permanently**, for the rest of the process's
+  life, with nothing to notice or restart it (the thread just stops; the
+  process itself keeps running fine, which makes this particularly easy to
+  miss in the field). All of them now catch, log, and continue on the next
+  tick, extending the "never abort, always keep going" philosophy the
+  codebase already applies to every peripheral's `init()` into their
+  long-running loops too.
+- **systemd watchdog (`app/sd_notify.py`, new module).** Pure-socket
+  `sd_notify` protocol implementation (no new pip dependency). `main.py`
+  calls `sd_notify.ready()` only after every peripheral init has returned
+  (they're all individually failure-tolerant, so reaching that call is
+  itself a meaningful "actually booted cleanly" signal) and
+  `sd_notify.start_watchdog()` at boot, which pings `WATCHDOG=1` at half of
+  `WatchdogSec`. `pl-connect.service` changed `Type=simple` → `Type=notify`
+  + `WatchdogSec=30`. This catches a genuine **hang** (process alive but
+  stuck — e.g. a future blocking call that never returns), which
+  `Restart=always` alone cannot detect since it only reacts to the process
+  actually exiting. Both `sd_notify` calls are no-ops when `$NOTIFY_SOCKET`
+  isn't set, so running the app outside systemd (`PORT=8080 python -m
+  app.main`, per README's "Testing locally" section) is unaffected.
+
+## 14. Known gaps (as of this writing)
+
+- RS485 Modbus RTU: three real bugs found and fixed during actual bench
+  testing against a real USB-RS485 link (self-echo, DE dropping mid-frame,
+  no recovery from a broken port — full writeup in §7's "Real-hardware
+  bring-up findings"). Code-verified but **the combination of all three
+  fixes was not re-confirmed end-to-end on real hardware** — if picking
+  this up again, re-run the same bench test first before assuming anything
+  else is broken.
 - `app/state.py`'s `last_update_ms` is `time.monotonic() * 1000` — boot-relative,
   not wall-clock, matching the firmware's documented behavior
   (`PROTOCOLS.md` §5) — don't feed it to a wall-clock date function.
@@ -456,3 +551,11 @@ Added after the initial port shipped Pi-4-only. What changed and why:
   same as firmware — UI allows selecting it but nothing consumes it.
 - DO `mode`/`invert` persisted but not acted on (§4) — matches firmware
   exactly, not a bug.
+- Slave register **Type** (data_type) is a dashboard field independent of
+  what the actual downstream device's register width really is — the
+  dashboard doesn't know or validate this against anything. A mismatch
+  (e.g. configuring F32 against a device that actually exposes that address
+  as U16) won't cause a communication failure or a CRC error — it'll just
+  silently decode nonsense values from real bytes. Worth an explicit sanity
+  check against the target device's register map whenever a slave is
+  configured, not just trusting whatever was picked in the dropdown.

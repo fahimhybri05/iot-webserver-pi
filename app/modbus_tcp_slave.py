@@ -69,15 +69,15 @@ def _sync_loop():
 
     while True:
         time.sleep(_SYNC_PERIOD_S)
-        di = gpio_driver.get_input_states()
-        rel = gpio_driver.get_relay_states()
-        cnt = gpio_driver.get_counts()
-        bits = [bool(v) for v in di] + [bool(v) for v in rel]
-        regs = [0] * MB_INPUT_REGS
-        for i, c in enumerate(cnt):
-            regs[2 * i] = c & 0xFFFF
-            regs[2 * i + 1] = (c >> 16) & 0xFFFF
         try:
+            di = gpio_driver.get_input_states()
+            rel = gpio_driver.get_relay_states()
+            cnt = gpio_driver.get_counts()
+            bits = [bool(v) for v in di] + [bool(v) for v in rel]
+            regs = [0] * MB_INPUT_REGS
+            for i, c in enumerate(cnt):
+                regs[2 * i] = c & 0xFFFF
+                regs[2 * i + 1] = (c >> 16) & 0xFFFF
             slave_ctx = _context[_unit_id]
             slave_ctx.setValues(2, 0, bits)  # FC02 discrete inputs
             slave_ctx.setValues(4, 0, regs)  # FC04 input registers
