@@ -30,6 +30,7 @@ register = high word) on top of each register's own big-endian byte order
 per the Modbus wire format.
 """
 import logging
+import math
 import struct
 import threading
 import time
@@ -84,6 +85,17 @@ RTU_DE_SETTLE_S = 0.002
 # looks exactly like "CRC error, N*8 bytes" on the slave/simulator side even
 # though every individual request was well-formed.
 RTU_INTERFRAME_GAP_S = 0.004
+# Extra margin added on top of a frame's own computed transmit time before
+# dropping DE - see _transact()'s comment where this is used. ser.flush()
+# (tcdrain) is supposed to block until the UART has physically finished
+# clocking every bit onto the wire, but this isn't reliable on every
+# kernel/UART-driver combination - some report "drained" as soon as the
+# last byte is handed to the hardware FIFO, not once the FIFO has actually
+# emptied onto the wire. 25% margin on top of the nominal transmit time
+# covers that slop cheaply (a couple hundred microseconds at typical Modbus
+# baud rates) against the alternative of silently chopping the tail of
+# every request.
+RTU_TX_MARGIN_FRAC = 0.25
 
 RS485_REG_HOLDING = 0
 RS485_REG_INPUT = 1
@@ -205,9 +217,21 @@ def _transact(ser, slave_id, func_code, start_addr, quantity):
     time.sleep(RTU_DE_SETTLE_S)
     try:
         ser.write(req)
-        ser.flush()  # block until the request is actually on the wire
+        ser.flush()  # *should* block until the request is actually on the wire - see below
     finally:
-        time.sleep(RTU_DE_SETTLE_S)
+        # Don't fully trust flush()'s own guarantee: compute this frame's
+        # actual nominal transmit time from the real port settings and wait
+        # at least that long (plus RTU_TX_MARGIN_FRAC margin) before
+        # dropping DE, regardless of what flush() claims already happened.
+        # Confirmed on real hardware that a flat, too-short settle here
+        # chops the tail of the frame off on the wire - the receiver then
+        # sees a truncated request and reports something that looks like
+        # random corruption (varying "address" bytes, always a fraction of
+        # a full frame's length), not an obvious "we sent garbage" signal.
+        parity_bit = 0 if ser.parity == serial.PARITY_NONE else 1
+        bits_per_byte = 1 + ser.bytesize + parity_bit + math.ceil(ser.stopbits)
+        tx_time = (bits_per_byte * len(req)) / ser.baudrate
+        time.sleep(max(RTU_DE_SETTLE_S, tx_time * (1 + RTU_TX_MARGIN_FRAC)))
         GPIO.output(RTU_DE_GPIO, GPIO.LOW)
         _last_tx_end = time.monotonic()
 
