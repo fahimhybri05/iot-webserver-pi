@@ -654,36 +654,52 @@ function setRtuRegType(i, j, rt){
   renderRtuCfgRows();
 }
 
+function toggleRtuSlaveOpen(i){
+  rtuSlaves[i]._open = !rtuSlaves[i]._open;
+  renderRtuCfgRows();
+}
+
 function renderRtuCfgRows(){
   const list = document.getElementById('rtu-cfg-list');
   if(!list) return;
   if(!rtuSlaves.length){
     list.innerHTML = '<div style="text-align:center;color:var(--text3);padding:12px">No slaves configured — click "+ Add Slave"</div>';
   } else {
-    list.innerHTML = rtuSlaves.map((s,i) => `
-      <div class="net-form" style="margin-bottom:14px">
-        <div class="net-form-title">Slave #${i+1}</div>
-        <div class="form-row">
-          <span class="form-label">Slave ID</span>
-          <input class="cfg-input" style="width:70px" value="${s.slave_id}" onchange="rtuSlaves[${i}].slave_id=parseInt(this.value)||1">
+    list.innerHTML = rtuSlaves.map((s,i) => {
+      const open = !!s._open;
+      const regCount = s.registers.length;
+      return `
+      <div class="rtu-slave-card">
+        <div class="rtu-slave-hd" onclick="toggleRtuSlaveOpen(${i})">
+          <span class="rtu-slave-chevron">${open?'▾':'▸'}</span>
+          <span class="rtu-slave-title">Slave #${i+1}</span>
+          <span class="rtu-slave-meta">ID ${s.slave_id} · ${s.label||'—'} · ${regCount} register${regCount===1?'':'s'}</span>
         </div>
-        <div class="form-row">
-          <span class="form-label">Label</span>
-          <input class="cfg-input" value="${s.label}" onchange="rtuSlaves[${i}].label=this.value">
-        </div>
-        <div class="form-row">
-          <span class="form-label">Poll Interval (ms)</span>
-          <input class="cfg-input" style="width:90px" value="${s.poll_interval_ms}" onchange="rtuSlaves[${i}].poll_interval_ms=parseInt(this.value)||2000">
-        </div>
-        <table class="cfg-table">
-          <thead><tr><th>Label</th><th>Area</th><th>Start Addr</th><th>Unit</th><th>Type</th><th>Scale</th><th></th></tr></thead>
-          <tbody>${renderRtuRegisterRows(i)}</tbody>
-        </table>
-        <div style="display:flex;gap:10px;margin-top:10px">
-          <button class="save-btn" onclick="addRtuRegisterRow(${i})"${s.registers.length>=RTU_MAX_REGS?' disabled':''}>+ Add Register</button>
-          <button class="di-reset-btn" onclick="removeRtuSlaveRow(${i})">Remove Slave</button>
-        </div>
-      </div>`).join('');
+        ${open ? `
+        <div class="rtu-slave-body">
+          <div class="form-row">
+            <span class="form-label">Slave ID</span>
+            <input class="cfg-input" style="width:70px" value="${s.slave_id}" onchange="rtuSlaves[${i}].slave_id=parseInt(this.value)||1">
+          </div>
+          <div class="form-row">
+            <span class="form-label">Label</span>
+            <input class="cfg-input" value="${s.label}" onchange="rtuSlaves[${i}].label=this.value">
+          </div>
+          <div class="form-row">
+            <span class="form-label">Poll Interval (ms)</span>
+            <input class="cfg-input" style="width:90px" value="${s.poll_interval_ms}" onchange="rtuSlaves[${i}].poll_interval_ms=parseInt(this.value)||2000">
+          </div>
+          <table class="cfg-table">
+            <thead><tr><th>Label</th><th>Area</th><th>Start Addr</th><th>Unit</th><th>Type</th><th>Scale</th><th></th></tr></thead>
+            <tbody>${renderRtuRegisterRows(i)}</tbody>
+          </table>
+          <div style="display:flex;gap:10px;margin-top:10px">
+            <button class="save-btn" onclick="addRtuRegisterRow(${i})"${regCount>=RTU_MAX_REGS?' disabled':''}>+ Add Register</button>
+            <button class="di-reset-btn" onclick="removeRtuSlaveRow(${i})">Remove Slave</button>
+          </div>
+        </div>` : ''}
+      </div>`;
+    }).join('');
   }
   const addBtn = document.getElementById('rtu-add-btn');
   if(addBtn) addBtn.disabled = rtuSlaves.length >= RTU_MAX_SLAVES;
@@ -699,6 +715,7 @@ function addRtuSlaveRow(){
     label: 'Slave ' + (rtuSlaves.length + 1),
     poll_interval_ms: 2000,
     registers: [],
+    _open: true, /* just added - open it, unlike slaves loaded from config */
   });
   renderRtuCfgRows();
 }
@@ -745,12 +762,20 @@ async function loadRs485Config(){
       st.textContent = cfg.running ? 'RUNNING' : 'STOPPED';
       st.className = 'info-val ' + (cfg.running ? 'green' : 'amber');
     }
+    /* Preserve each card's open/collapsed state across reloads (this runs
+     * again every time the RS485 tab is switched back to) - keyed by
+     * slave_id since list order/index isn't guaranteed stable. First-ever
+     * load has nothing to look up, so everything defaults collapsed then -
+     * that's the point, for a config with many slaves. */
+    const prevOpen = {};
+    rtuSlaves.forEach(s => { prevOpen[s.slave_id] = !!s._open; });
     rtuSlaves = (cfg.slaves || []).filter(s => s.enabled).map(s => ({
       slave_id: s.slave_id, label: s.label, poll_interval_ms: s.poll_interval_ms,
       registers: (s.registers || []).map(r => ({
         label: r.label, reg_type: r.reg_type, start_addr: r.start_addr,
         unit: r.unit || '', data_type: r.data_type, scale: r.scale,
       })),
+      _open: prevOpen[s.slave_id] || false,
     }));
     renderRtuCfgRows();
   } catch (error) {
