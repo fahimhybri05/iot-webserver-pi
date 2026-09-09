@@ -140,32 +140,45 @@ def _scan_loop():
     prev = [False] * NUM_INPUTS
     global _counts_dirty
     while True:
-        changed = False
-        with _lock:
-            for i in range(NUM_INPUTS):
-                # physical LOW = logical HIGH (active), pull-up idle-high; XOR invert
-                val = (GPIO.input(DI_PINS[i]) == 0) ^ _di_invert[i]
-                if val != prev[i]:
-                    if val and _di_modes[i] == DI_MODE_COUNTER:
-                        _di_counts[i] += 1
-                        _counts_dirty = True
-                    prev[i] = val
-                    changed = True
-                _input_states[i] = val
-        if changed:
-            state.broadcast()
-        time.sleep(_SCAN_PERIOD_S)
+        try:
+            changed = False
+            with _lock:
+                for i in range(NUM_INPUTS):
+                    # physical LOW = logical HIGH (active), pull-up idle-high; XOR invert
+                    val = (GPIO.input(DI_PINS[i]) == 0) ^ _di_invert[i]
+                    if val != prev[i]:
+                        if val and _di_modes[i] == DI_MODE_COUNTER:
+                            _di_counts[i] += 1
+                            _counts_dirty = True
+                        prev[i] = val
+                        changed = True
+                    _input_states[i] = val
+            if changed:
+                state.broadcast()
+            time.sleep(_SCAN_PERIOD_S)
+        except Exception:
+            # This is the DI scan loop - the single most safety-relevant
+            # background thread in the app. An unhandled exception here
+            # would otherwise silently stop all DI monitoring for the rest
+            # of the process's life with nothing to notice or restart it.
+            # Log and keep going instead, same never-abort spirit every
+            # peripheral init already follows, extended to runtime too.
+            log.exception("DI scan loop error - continuing")
+            time.sleep(_SCAN_PERIOD_S)
 
 
 def _count_save_loop():
     global _counts_dirty
     while True:
-        time.sleep(_COUNT_SAVE_PERIOD_S)
-        if _counts_dirty:
-            with _lock:
-                counts = list(_di_counts)
-            config.save_counts(counts)
-            _counts_dirty = False
+        try:
+            time.sleep(_COUNT_SAVE_PERIOD_S)
+            if _counts_dirty:
+                with _lock:
+                    counts = list(_di_counts)
+                config.save_counts(counts)
+                _counts_dirty = False
+        except Exception:
+            log.exception("counter save loop error - continuing")
 
 
 def start_input_scan():

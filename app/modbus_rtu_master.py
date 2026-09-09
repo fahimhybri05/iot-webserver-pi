@@ -337,74 +337,84 @@ def _poll_loop(cfg):
     )
 
     while True:
-        now_ms = time.monotonic() * 1000
-        polled_any = False
+        try:
+            now_ms = time.monotonic() * 1000
+            polled_any = False
 
-        for i, sc in enumerate(slaves):
-            if not sc.get("enabled"):
-                continue
-            if now_ms - last_poll_ms[i] < sc.get("poll_interval_ms", 2000):
-                continue
-            last_poll_ms[i] = now_ms
-            polled_any = True
+            for i, sc in enumerate(slaves):
+                if not sc.get("enabled"):
+                    continue
+                if now_ms - last_poll_ms[i] < sc.get("poll_interval_ms", 2000):
+                    continue
+                last_poll_ms[i] = now_ms
+                polled_any = True
 
-            regs = sc.get("registers", [])
-            round_ok = len(regs) > 0
-            decoded = [0.0] * len(regs)
+                regs = sc.get("registers", [])
+                round_ok = len(regs) > 0
+                decoded = [0.0] * len(regs)
 
-            for j, rc in enumerate(regs):
-                reg_type = rc.get("reg_type", RS485_REG_HOLDING)
-                data_type = rc.get("data_type", RS485_DT_U16)
-                is_bit = reg_type in (RS485_REG_COIL, RS485_REG_DISCRETE)
-                wide = (not is_bit) and data_type in (RS485_DT_U32, RS485_DT_S32, RS485_DT_F32)
-                func = _FUNC_BY_REG_TYPE.get(reg_type, 0x03)
-                qty = 1 if is_bit else (2 if wide else 1)
-                try:
-                    data = _transact(ser, sc["slave_id"], func, rc.get("start_addr", 0), qty)
-                    decoded[j] = _decode(reg_type, data_type, rc.get("scale", 1.0), data)
-                except RtuProtocolError as e:
-                    # Normal on a real bus - bad slave, nothing at that
-                    # address, transient noise. Move on to the next
-                    # register; the port itself is fine.
-                    round_ok = False
-                    log.warning("slave %s reg %d poll failed: %s", sc.get("slave_id"), j, e)
-                except (OSError, serial.SerialException) as e:
-                    # The port itself faulted (seen in the wild: errno 5
-                    # "Input/output error" from a UART error condition that
-                    # doesn't clear on its own) - every subsequent read/write
-                    # on this same fd fails identically forever otherwise.
-                    # Close and reopen it so a transient hardware fault gets
-                    # a chance to actually clear, instead of the poll loop
-                    # spinning on a permanently broken descriptor.
-                    round_ok = False
-                    log.error(
-                        "slave %s reg %d: serial port error (%s) - reopening %s",
-                        sc.get("slave_id"), j, e, RTU_SERIAL_PORT,
-                    )
+                for j, rc in enumerate(regs):
+                    reg_type = rc.get("reg_type", RS485_REG_HOLDING)
+                    data_type = rc.get("data_type", RS485_DT_U16)
+                    is_bit = reg_type in (RS485_REG_COIL, RS485_REG_DISCRETE)
+                    wide = (not is_bit) and data_type in (RS485_DT_U32, RS485_DT_S32, RS485_DT_F32)
+                    func = _FUNC_BY_REG_TYPE.get(reg_type, 0x03)
+                    qty = 1 if is_bit else (2 if wide else 1)
                     try:
-                        ser.close()
-                    except Exception:
-                        pass
-                    time.sleep(0.5)
-                    try:
-                        ser = _open_serial(cfg)
-                    except Exception as e2:
-                        log.error("failed to reopen %s: %s - RS485 polling stopped", RTU_SERIAL_PORT, e2)
-                        return
-                    break  # this slave's round is already a loss; retry fresh next tick
+                        data = _transact(ser, sc["slave_id"], func, rc.get("start_addr", 0), qty)
+                        decoded[j] = _decode(reg_type, data_type, rc.get("scale", 1.0), data)
+                    except RtuProtocolError as e:
+                        # Normal on a real bus - bad slave, nothing at that
+                        # address, transient noise. Move on to the next
+                        # register; the port itself is fine.
+                        round_ok = False
+                        log.warning("slave %s reg %d poll failed: %s", sc.get("slave_id"), j, e)
+                    except (OSError, serial.SerialException) as e:
+                        # The port itself faulted (seen in the wild: errno 5
+                        # "Input/output error" from a UART error condition
+                        # that doesn't clear on its own) - every subsequent
+                        # read/write on this same fd fails identically
+                        # forever otherwise. Close and reopen it so a
+                        # transient hardware fault gets a chance to actually
+                        # clear, instead of spinning on a broken descriptor.
+                        round_ok = False
+                        log.error(
+                            "slave %s reg %d: serial port error (%s) - reopening %s",
+                            sc.get("slave_id"), j, e, RTU_SERIAL_PORT,
+                        )
+                        try:
+                            ser.close()
+                        except Exception:
+                            pass
+                        time.sleep(0.5)
+                        try:
+                            ser = _open_serial(cfg)
+                        except Exception as e2:
+                            log.error(
+                                "failed to reopen %s: %s - RS485 polling stopped", RTU_SERIAL_PORT, e2
+                            )
+                            return
+                        break  # this slave's round is already a loss; retry fresh next tick
 
-            with _lock:
-                st = _status[i]
-                if round_ok:
-                    st["reg_count"] = len(regs)
-                    st["values"] = decoded
-                    st["online"] = True
-                    st["last_update_ms"] = now_ms
-                elif now_ms - st["last_update_ms"] > sc.get("poll_interval_ms", 2000) * 3:
-                    st["online"] = False
+                with _lock:
+                    st = _status[i]
+                    if round_ok:
+                        st["reg_count"] = len(regs)
+                        st["values"] = decoded
+                        st["online"] = True
+                        st["last_update_ms"] = now_ms
+                    elif now_ms - st["last_update_ms"] > sc.get("poll_interval_ms", 2000) * 3:
+                        st["online"] = False
 
-        if polled_any:
-            state.broadcast()
+            if polled_any:
+                state.broadcast()
+        except Exception:
+            # Defense in depth beyond the per-register handling above: an
+            # unexpected bug here (bad index, a state.broadcast() error,
+            # anything not already anticipated) would otherwise permanently
+            # kill RS485 polling for the rest of the process's life with no
+            # restart. Log and keep the poll tick going instead.
+            log.exception("RS485 poll round error - continuing")
         time.sleep(RTU_POLL_TICK_S)
 
 

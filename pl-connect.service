@@ -4,7 +4,15 @@ After=network-online.target
 Wants=network-online.target
 
 [Service]
-Type=simple
+# notify (not simple): app.main calls sd_notify.ready() only after every
+# peripheral init has returned, and sd_notify.start_watchdog() pings
+# WATCHDOG=1 at half of WatchdogSec below - this catches a genuine hang
+# (process alive but stuck), not just a crash/exit, which Type=simple can't
+# detect on its own. Both calls are no-ops (app/sd_notify.py) if the
+# service is ever run outside systemd, so this is safe to test with
+# `PORT=8080 venv/bin/python -m app.main` same as before.
+Type=notify
+WatchdogSec=30
 # Adjust to wherever this repo is deployed on the Pi.
 WorkingDirectory=/opt/pl-connect
 Environment=PL_CONNECT_APPLY_NETWORK=1
