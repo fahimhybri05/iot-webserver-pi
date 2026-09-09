@@ -195,9 +195,24 @@ def _transact(ser, slave_id, func_code, start_addr, quantity):
         GPIO.output(RTU_DE_GPIO, GPIO.LOW)
         _last_tx_end = time.monotonic()
 
+    # nRE is tied permanently LOW (receiver always enabled - see module
+    # docstring), including during our own transmission. Unlike the ESP32
+    # firmware's dedicated UART_MODE_RS485_HALF_DUPLEX hardware feature
+    # (which suppresses self-reception in silicon), this Pi UART has no such
+    # feature: on a shared differential pair, an always-on receiver sees our
+    # own outgoing bytes just as much as an incoming reply, and they land in
+    # the OS receive buffer over the same ~4.6ms (at 19200 baud) it took to
+    # transmit them. Discard that self-echo now, after our own transmission
+    # has fully finished, so the next ser.read() below can only pick up the
+    # slave's real reply - not our own request misread as one (which is
+    # indistinguishable from "CRC mismatch" garbage: our own request's
+    # address/function bytes happen to be exactly what we just sent, and the
+    # rest of the frame gets misparsed as a bogus length + bogus CRC).
+    ser.reset_input_buffer()
+
     header = ser.read(2)
     if len(header) < 2:
-        raise TimeoutError("no response")
+        raise TimeoutError(f"no response (got {header.hex()})")
     resp_addr, resp_func = header[0], header[1]
     if resp_func & 0x80:
         rest = ser.read(3)
@@ -206,18 +221,25 @@ def _transact(ser, slave_id, func_code, start_addr, quantity):
 
     bc = ser.read(1)
     if len(bc) < 1:
-        raise TimeoutError("short response (no byte count)")
+        raise TimeoutError(f"short response (no byte count) header={header.hex()}")
     byte_count = bc[0]
     data = ser.read(byte_count)
     crc_bytes = ser.read(2)
     if len(data) < byte_count or len(crc_bytes) < 2:
-        raise TimeoutError("incomplete response")
+        raise TimeoutError(
+            f"incomplete response: expected {byte_count} data bytes, got {len(data)} "
+            f"- header={header.hex()} bc={bc.hex()} data={data.hex()} crc_read={crc_bytes.hex()}"
+        )
 
     frame = header + bc + data
-    if struct.unpack("<H", crc_bytes)[0] != _crc16(frame):
-        raise IOError("CRC mismatch")
+    expected_crc = _crc16(frame)
+    got_crc = struct.unpack("<H", crc_bytes)[0]
+    if got_crc != expected_crc:
+        raise IOError(
+            f"CRC mismatch: frame={frame.hex()} got_crc={got_crc:04x} expected_crc={expected_crc:04x}"
+        )
     if resp_addr != slave_id or resp_func != func_code:
-        raise IOError(f"unexpected addr/func in response: {resp_addr}/{resp_func}")
+        raise IOError(f"unexpected addr/func in response: {resp_addr}/{resp_func} raw={frame.hex()}")
     return data
 
 
