@@ -61,9 +61,19 @@ def _git_auth(cfg):
 
 
 def _run(args, env, cwd, timeout=60):
-    log.info("git %s", " ".join(a for a in args if not a.lower().startswith("authorization")))
+    # -c safe.directory=<cwd> up front, every call: the systemd unit runs
+    # this service as root (pl-connect.service) while SETUP.md has the repo
+    # cloned by a regular user (`sudo chown $USER` before `git clone`) - that
+    # owner/invoker mismatch trips git's "dubious ownership" check
+    # (CVE-2022-24765 mitigation) on every single git command root runs
+    # here, not just an occasional edge case. Scoping the exception to this
+    # one invocation (vs. `git config --global --add safe.directory`) avoids
+    # permanently trusting the path in root's global gitconfig for anything
+    # else that might run as root on the box.
+    full_args = ["-c", f"safe.directory={cwd}"] + args
+    log.info("git %s", " ".join(a for a in full_args if not a.lower().startswith("authorization")))
     return subprocess.run(
-        ["git"] + args, cwd=cwd, env=env, capture_output=True, text=True, timeout=timeout
+        ["git"] + full_args, cwd=cwd, env=env, capture_output=True, text=True, timeout=timeout
     )
 
 
@@ -81,10 +91,7 @@ def run_git_update(repo_dir):
     extra_args, env = _git_auth(cfg)
 
     if repo_url:
-        set_url = subprocess.run(
-            ["git", "remote", "set-url", "origin", repo_url],
-            cwd=repo_dir, capture_output=True, text=True, timeout=15,
-        )
+        set_url = _run(["remote", "set-url", "origin", repo_url], env, repo_dir, timeout=15)
         if set_url.returncode != 0:
             return False, f"failed to set remote url: {set_url.stderr.strip()}"
 

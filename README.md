@@ -1,5 +1,7 @@
 # PL Connect — Raspberry Pi port
 
+ALWAYS UPDATE THE VERSION FILE
+
 Python port of the ESP32-P4 "PL Connect" firmware (`../main/`), for the
 Raspberry Pi variant of the same carrier board — runs on **Pi 4 and Pi 5**
 both. Same REST/WebSocket API, same dashboard, same register maps — see
