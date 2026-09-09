@@ -3,13 +3,19 @@
 DE (GPIO23) is a plain GPIO, not the UART's hardware RTS line, so - unlike
 the ESP32-P4 firmware, whose UART peripheral could remap ANY pin to act as
 hardware-driven DE via UART_MODE_RS485_HALF_DUPLEX - there's no kernel/driver
-auto-toggle available for this specific pin assignment on the Pi. DE is
-toggled manually around each transaction instead: high -> write -> flush
-(block until the OS write buffer is actually on the wire) -> small settle
-delay -> low. nRE (GPIO24) is fixed low once at startup and never toggled,
-same as the firmware (the transceiver's receiver stays enabled permanently;
-half-duplex framing alone prevents self-echo confusion since we only read
-after our own write is confirmed flushed).
+auto-toggle available for this specific pin assignment on the Pi (true on
+both Pi 4's BCM2711 and Pi 5's RP1 - neither exposes hardware RS485 DE
+framing the way the ESP32 UART peripheral does). DE is toggled manually
+around each transaction instead: high -> write -> flush (block until the OS
+write buffer is actually on the wire) -> small settle delay -> low. nRE
+(GPIO24) is fixed low once at startup and never toggled, same as the
+firmware (the transceiver's receiver stays enabled permanently; half-duplex
+framing alone prevents self-echo confusion since we only read after our own
+write is confirmed flushed).
+
+GPIO access goes through the `rpi-lgpio` package (imported as `RPi.GPIO`,
+see gpio_driver.py's docstring) so this same code runs unmodified on Pi 4
+and Pi 5 - real RPi.GPIO would fail outright on the Pi 5's RP1 chip.
 
 Hand-rolled RTU framing (CRC16, FC01/02/03/04 read-only) rather than a
 library, so the decode logic can mirror modbus_rtu_manager.c's traced

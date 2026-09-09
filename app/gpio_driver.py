@@ -4,6 +4,14 @@ GPIO numbers are Pi BCM numbers for the SAME physical header pins the ESP32-P4
 firmware used - re-derived from the board schematic this session, NOT copied
 from gpio.c's ESP32 GPIO numbers (those are meaningless on a Pi). See the plan
 file / memory/rpi4_esp32p4_gpio_reference.md for the pin-by-pin cross-check.
+The 40-pin header's BCM numbering is identical on Pi 4 and Pi 5, so these pin
+lists need no per-model branching.
+
+Import is `RPi.GPIO` for API compatibility, but the installed package
+(requirements.txt) is `rpi-lgpio`, not real RPi.GPIO: real RPi.GPIO talks
+directly to BCM2711 registers and cannot address the Pi 5's RP1 I/O chip at
+all (fails at GPIO.setmode()). rpi-lgpio is a drop-in replacement backed by
+lgpio/gpiochip that works on both boards under the same import.
 """
 import logging
 import threading
@@ -18,7 +26,7 @@ try:
 
     _HAVE_GPIO = True
 except (ImportError, RuntimeError):
-    log.warning("RPi.GPIO not available - running with a no-op GPIO stub (dev/off-Pi mode)")
+    log.warning("RPi.GPIO (rpi-lgpio) not available - running with a no-op GPIO stub (dev/off-Pi mode)")
     _HAVE_GPIO = False
 
     class _StubGPIO:

@@ -1,16 +1,21 @@
-# Setting up PL Connect on a Raspberry Pi 4
+# Setting up PL Connect on a Raspberry Pi 4 or 5
 
 Step-by-step from a bare Pi to a running dashboard. This is the "PL-CONNECT"
 carrier board (same board the ESP32-P4 firmware in `../main/` targets) with
-a Raspberry Pi 4 plugged into its 40-pin header instead of the ESP32-P4
-dev kit.
+a Raspberry Pi 4 or 5 plugged into its 40-pin header instead of the ESP32-P4
+dev kit. Both boards use the exact same 40-pin BCM GPIO numbering and the
+exact same steps below — the only Pi-generation-specific detail anywhere in
+this codebase is the GPIO access library (`rpi-lgpio` in `requirements.txt`,
+handled automatically in step 5).
 
 ## 0. What you need
 
-- Raspberry Pi 4, plugged into the PL-CONNECT board's 40-pin header.
+- Raspberry Pi 4 **or** Pi 5, plugged into the PL-CONNECT board's 40-pin
+  header.
 - Raspberry Pi OS **Bookworm or newer** (uses NetworkManager by default —
   older releases used `dhcpcd`, which `app/network_manager.py` does not
-  support).
+  support). Pi 5 requires the 64-bit image regardless — there is no 32-bit
+  Raspberry Pi OS build for it.
 - Network access to the Pi (Ethernet recommended for first setup, since
   Wi-Fi is configured *from* the dashboard, which needs network to reach in
   the first place — chicken-and-egg if you start Wi-Fi-only).
@@ -42,13 +47,17 @@ dtoverlay=disable-bt
 
 - `dtparam=i2c_arm=on` — enables I2C1 on GPIO2/GPIO3 (header pins 3/5), used
   by the SSD1306 OLED.
-- `dtoverlay=disable-bt` — the Pi 4's built-in Bluetooth normally claims the
+- `dtoverlay=disable-bt` — the Pi's built-in Bluetooth normally claims the
   good PL011 UART, leaving GPIO14/15 (header pins 8/10) on the limited
   mini-UART. Disabling Bluetooth frees the PL011 onto GPIO14/15 instead, so
   RS485 gets the real hardware UART as `/dev/ttyAMA0` (symlinked
   `/dev/serial0`). This is the same "no serial console while RS485 uses
   these pins" tradeoff the ESP32-P4 firmware's own README documents for its
-  version of this board.
+  version of this board. Same overlay name and same tradeoff on Pi 5's RP1
+  chip as on Pi 4's BCM2711 — not independently re-confirmed on physical
+  Pi 5 hardware during this pass, so if `/dev/serial0` doesn't show up after
+  reboot on a Pi 5, that overlay behavior is the first thing to double-check
+  with `i2cdetect`/`ls -l /dev/serial0` from step 2's verification below.
 
 Then free the UART from the login console and reboot:
 
@@ -90,7 +99,7 @@ silently breaks that feature (`git fetch` fails with "not a git repository").
 ```
 sudo mkdir -p /opt/pl-connect-src
 sudo chown $USER /opt/pl-connect-src
-git clone --branch <your-branch> <your-repo-url> /opt/pl-connect-src
+git clone --branch main https://github.com/fahimhybri05/iot-webserver-pi.git /opt/pl-connect-src
 ```
 
 Point everything else (systemd's `WorkingDirectory`, and where you `cd`
@@ -121,9 +130,16 @@ python3 -m venv venv
 venv/bin/pip install -r requirements.txt
 ```
 
-`RPi.GPIO` only installs on ARM (the `requirements.txt` entry is
+`rpi-lgpio` only installs on ARM (the `requirements.txt` entry is
 platform-gated) — this step is where you'd notice if you're accidentally
 doing this on a non-Pi machine, it'll just be silently skipped there.
+`rpi-lgpio` is a drop-in replacement for `RPi.GPIO` (same `import RPi.GPIO`
+in the code) that works on **both** Pi 4 and Pi 5 — real RPi.GPIO cannot
+address the Pi 5's RP1 I/O chip and fails outright there. If a system-wide
+`python3-rpi.gpio` (real RPi.GPIO) is also installed via `apt`, it can
+shadow the venv's `rpi-lgpio` on some setups — if GPIO calls fail on a Pi 5
+with an error naming the SoC/peripheral base address, `sudo apt remove
+python3-rpi.gpio` and recreate the venv.
 
 ## 6. Test it before installing as a service
 

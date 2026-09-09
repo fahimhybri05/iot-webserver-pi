@@ -1,11 +1,16 @@
 # PL Connect — Raspberry Pi port
 
 Python port of the ESP32-P4 "PL Connect" firmware (`../main/`), for the
-Raspberry Pi 4 variant of the same carrier board. Same REST/WebSocket API,
-same dashboard, same register maps — see `../memory/rpi4_esp32p4_gpio_reference.md`
-and the port's plan file for how the GPIO mapping was re-derived from the
-board schematic (do **not** reuse the ESP32 GPIO numbers from the C source —
-they're meaningless on a Pi).
+Raspberry Pi variant of the same carrier board — runs on **Pi 4 and Pi 5**
+both. Same REST/WebSocket API, same dashboard, same register maps — see
+`../memory/rpi4_esp32p4_gpio_reference.md` and the port's plan file for how
+the GPIO mapping was re-derived from the board schematic (do **not** reuse
+the ESP32 GPIO numbers from the C source — they're meaningless on a Pi).
+The 40-pin header's BCM GPIO numbering is identical across Pi 4 and Pi 5, so
+the same pin map and the same code run on either board unmodified — the one
+thing that differs is the GPIO access library (see `requirements.txt`:
+`rpi-lgpio`, not `RPi.GPIO` — real RPi.GPIO cannot address the Pi 5's RP1 I/O
+chip at all).
 
 **New Pi, starting from scratch? See [`SETUP.md`](SETUP.md)** for the full
 step-by-step (flashing, config.txt, install, systemd, wiring table,

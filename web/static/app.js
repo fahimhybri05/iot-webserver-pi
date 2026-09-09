@@ -100,6 +100,7 @@ function updateSummary(){
 }
 
 let _footerSet = false;
+let _boardInfoSet = false;
 function updateNetworkInfo(data){
   const ip = data.ip || '—';
   const wip = data.wifi_ip || '—';
@@ -126,6 +127,14 @@ function updateNetworkInfo(data){
     const fc = document.getElementById('footer-copy');
     if(fc) fc.textContent = data.copyright || '';
     _footerSet = true;
+  }
+
+  if(!_boardInfoSet && data.board_model){
+    const bm = document.getElementById('board-model');
+    if(bm) bm.textContent = data.board_model;
+    const bc = document.getElementById('board-cpu');
+    if(bc) bc.textContent = data.board_cpu || '—';
+    _boardInfoSet = true;
   }
 }
 

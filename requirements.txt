@@ -5,4 +5,9 @@ paho-mqtt>=2.0
 pymodbus>=3.6
 luma.oled>=3.13
 Pillow>=10.0
-RPi.GPIO>=0.7.1; platform_machine=='armv7l' or platform_machine=='aarch64'
+# rpi-lgpio, not RPi.GPIO: same "import RPi.GPIO as GPIO" surface (drop-in),
+# but backed by lgpio/gpiochip instead of direct BCM2711 register access -
+# real RPi.GPIO cannot address the Pi 5's RP1 I/O chip at all (fails at
+# GPIO.setmode()). This one package covers Pi 4 and Pi 5 both; do not install
+# real RPi.GPIO alongside it (same import namespace, will conflict).
+rpi-lgpio>=0.4; platform_machine=='armv7l' or platform_machine=='aarch64'

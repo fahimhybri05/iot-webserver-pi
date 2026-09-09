@@ -21,6 +21,29 @@ _ws_clients = set()
 _ws_lock = threading.Lock()
 
 
+def _detect_board():
+    """Reads /proc/device-tree/model once at import time - board doesn't
+    change at runtime. Pi 4 and Pi 5 use different SoCs (BCM2711/BCM2712);
+    the dashboard used to hardcode "Broadcom BCM2711", which is simply wrong
+    on a Pi 5. Falls back to "Unknown" off-Pi (dev machine) or on any read
+    error, same never-crash spirit as every other optional peripheral."""
+    try:
+        with open("/proc/device-tree/model", "r") as f:
+            model = f.read().strip("\x00\n \t")
+    except OSError:
+        model = "Unknown"
+    if "Raspberry Pi 5" in model:
+        cpu = "Broadcom BCM2712"
+    elif "Raspberry Pi 4" in model:
+        cpu = "Broadcom BCM2711"
+    else:
+        cpu = "Unknown"
+    return model or "Unknown", cpu
+
+
+BOARD_MODEL, BOARD_CPU = _detect_board()
+
+
 def register_ws_client(ws):
     with _ws_lock:
         _ws_clients.add(ws)
@@ -43,6 +66,8 @@ def build_status_json():
         "wifi_connected": network_manager.is_wifi_connected(),
         "version": FIRMWARE_VERSION,
         "copyright": FIRMWARE_COPYRIGHT,
+        "board_model": BOARD_MODEL,
+        "board_cpu": BOARD_CPU,
         "relays": gpio_driver.get_relay_states(),
         "inputs": gpio_driver.get_input_states(),
         "counts": gpio_driver.get_counts(),
