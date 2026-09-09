@@ -71,6 +71,15 @@ RTU_SERIAL_PORT = "/dev/serial0"  # header pins 8/10 -> Pi hw UART0 (GPIO14 TXD/
 RTU_RESPONSE_TIMEOUT_S = 0.3
 RTU_POLL_TICK_S = 0.02
 RTU_DE_SETTLE_S = 0.002
+# Modbus RTU's minimum inter-frame silence: >=3.5 character times so a
+# receiver's idle-time frame-boundary detector actually resets between
+# requests (about 4ms at 9600 8N1: 11 bits/char / 9600 baud * 3.5). Without
+# this, a slave that replies quickly (or rejects fast) can get the next
+# request before its receiver's silence window elapsed, and the two frames
+# arrive as one unbroken run of bytes from the receiver's point of view -
+# looks exactly like "CRC error, N*8 bytes" on the slave/simulator side even
+# though every individual request was well-formed.
+RTU_INTERFRAME_GAP_S = 0.004
 
 RS485_REG_HOLDING = 0
 RS485_REG_INPUT = 1
@@ -154,17 +163,37 @@ def _stopbits_const(s):
     return {1: serial.STOPBITS_ONE_POINT_FIVE, 2: serial.STOPBITS_TWO}.get(s, serial.STOPBITS_ONE)
 
 
+_last_tx_end = 0.0
+
+
 def _transact(ser, slave_id, func_code, start_addr, quantity):
+    global _last_tx_end
+
+    # Enforce the minimum inter-frame silence (RTU_INTERFRAME_GAP_S) before
+    # this request starts, measured from the end of whatever we last put on
+    # the wire - see that constant's comment for why. Only the single
+    # rtu-poll thread ever calls _transact, so this plain module global
+    # needs no lock.
+    gap = RTU_INTERFRAME_GAP_S - (time.monotonic() - _last_tx_end)
+    if gap > 0:
+        time.sleep(gap)
+
     req = _build_request(slave_id, func_code, start_addr, quantity)
     ser.reset_input_buffer()
 
     GPIO.output(RTU_DE_GPIO, GPIO.HIGH)
+    # Let the transceiver actually finish switching to drive mode before the
+    # first bit goes out - skipping this risks clipping the frame's leading
+    # byte(s) on the wire, which looks like a truncated/garbled response on
+    # the receiving end even though we transmitted the full request.
+    time.sleep(RTU_DE_SETTLE_S)
     try:
         ser.write(req)
         ser.flush()  # block until the request is actually on the wire
     finally:
         time.sleep(RTU_DE_SETTLE_S)
         GPIO.output(RTU_DE_GPIO, GPIO.LOW)
+        _last_tx_end = time.monotonic()
 
     header = ser.read(2)
     if len(header) < 2:
