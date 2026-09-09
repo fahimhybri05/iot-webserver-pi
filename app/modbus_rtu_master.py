@@ -9,9 +9,13 @@ framing the way the ESP32 UART peripheral does). DE is toggled manually
 around each transaction instead: high -> write -> flush (block until the OS
 write buffer is actually on the wire) -> small settle delay -> low. nRE
 (GPIO24) is fixed low once at startup and never toggled, same as the
-firmware (the transceiver's receiver stays enabled permanently; half-duplex
-framing alone prevents self-echo confusion since we only read after our own
-write is confirmed flushed).
+firmware - but unlike the firmware, this Pi UART has no hardware self-echo
+suppression (the ESP32's UART_MODE_RS485_HALF_DUPLEX does that in silicon;
+plain bit-banged DE does not), so an always-enabled receiver picks up our
+own transmitted bytes during TX. Confirmed on real hardware: every "response"
+was actually our own echoed request being misparsed. Fixed by explicitly
+discarding the input buffer right after DE goes low, before listening for
+the real reply - see _transact()'s comment at that call.
 
 GPIO access goes through the `rpi-lgpio` package (imported as `RPi.GPIO`,
 see gpio_driver.py's docstring) so this same code runs unmodified on Pi 4
@@ -99,6 +103,18 @@ _FUNC_BY_REG_TYPE = {
     RS485_REG_DISCRETE: 0x02,
     RS485_REG_HOLDING: 0x03,
 }
+
+class RtuProtocolError(Exception):
+    """A well-formed transaction that failed at the Modbus level (CRC
+    mismatch, slave exception, timeout, wrong addr/func) - a normal,
+    expected outcome on a real bus (bad slave, noise, nothing configured at
+    that address), not a sign the serial port itself is broken. Deliberately
+    NOT an OSError/IOError subclass (unlike Python's built-in TimeoutError,
+    which is) so _poll_loop can tell this apart from a genuine transport
+    fault raised by pyserial itself (serial.SerialException / OSError,
+    e.g. errno 5 "Input/output error") - only the latter should trigger
+    closing and reopening the serial port."""
+
 
 _lock = threading.Lock()
 _status = []  # list of dicts, index-aligned with cfg["slaves"], same shape as RtuSlaveStatus
@@ -212,21 +228,21 @@ def _transact(ser, slave_id, func_code, start_addr, quantity):
 
     header = ser.read(2)
     if len(header) < 2:
-        raise TimeoutError(f"no response (got {header.hex()})")
+        raise RtuProtocolError(f"no response (got {header.hex()})")
     resp_addr, resp_func = header[0], header[1]
     if resp_func & 0x80:
         rest = ser.read(3)
         code = rest[0] if rest else -1
-        raise IOError(f"slave {slave_id} exception response, code={code}")
+        raise RtuProtocolError(f"slave {slave_id} exception response, code={code}")
 
     bc = ser.read(1)
     if len(bc) < 1:
-        raise TimeoutError(f"short response (no byte count) header={header.hex()}")
+        raise RtuProtocolError(f"short response (no byte count) header={header.hex()}")
     byte_count = bc[0]
     data = ser.read(byte_count)
     crc_bytes = ser.read(2)
     if len(data) < byte_count or len(crc_bytes) < 2:
-        raise TimeoutError(
+        raise RtuProtocolError(
             f"incomplete response: expected {byte_count} data bytes, got {len(data)} "
             f"- header={header.hex()} bc={bc.hex()} data={data.hex()} crc_read={crc_bytes.hex()}"
         )
@@ -235,11 +251,11 @@ def _transact(ser, slave_id, func_code, start_addr, quantity):
     expected_crc = _crc16(frame)
     got_crc = struct.unpack("<H", crc_bytes)[0]
     if got_crc != expected_crc:
-        raise IOError(
+        raise RtuProtocolError(
             f"CRC mismatch: frame={frame.hex()} got_crc={got_crc:04x} expected_crc={expected_crc:04x}"
         )
     if resp_addr != slave_id or resp_func != func_code:
-        raise IOError(f"unexpected addr/func in response: {resp_addr}/{resp_func} raw={frame.hex()}")
+        raise RtuProtocolError(f"unexpected addr/func in response: {resp_addr}/{resp_func} raw={frame.hex()}")
     return data
 
 
@@ -267,18 +283,22 @@ def _decode(reg_type, data_type, scale, data):
     return raw * scale
 
 
+def _open_serial(cfg):
+    return serial.Serial(
+        port=RTU_SERIAL_PORT,
+        baudrate=cfg.get("baud", 9600) or 9600,
+        bytesize=_bits_const(cfg.get("data_bits", 8)),
+        parity=_parity_const(cfg.get("parity", 0)),
+        stopbits=_stopbits_const(cfg.get("stop_bits", 0)),
+        timeout=RTU_RESPONSE_TIMEOUT_S,
+    )
+
+
 def _poll_loop(cfg):
     from app import state
 
     try:
-        ser = serial.Serial(
-            port=RTU_SERIAL_PORT,
-            baudrate=cfg.get("baud", 9600) or 9600,
-            bytesize=_bits_const(cfg.get("data_bits", 8)),
-            parity=_parity_const(cfg.get("parity", 0)),
-            stopbits=_stopbits_const(cfg.get("stop_bits", 0)),
-            timeout=RTU_RESPONSE_TIMEOUT_S,
-        )
+        ser = _open_serial(cfg)
     except Exception as e:
         log.error("failed to open %s: %s", RTU_SERIAL_PORT, e)
         return
@@ -318,9 +338,36 @@ def _poll_loop(cfg):
                 try:
                     data = _transact(ser, sc["slave_id"], func, rc.get("start_addr", 0), qty)
                     decoded[j] = _decode(reg_type, data_type, rc.get("scale", 1.0), data)
-                except Exception as e:
+                except RtuProtocolError as e:
+                    # Normal on a real bus - bad slave, nothing at that
+                    # address, transient noise. Move on to the next
+                    # register; the port itself is fine.
                     round_ok = False
                     log.warning("slave %s reg %d poll failed: %s", sc.get("slave_id"), j, e)
+                except (OSError, serial.SerialException) as e:
+                    # The port itself faulted (seen in the wild: errno 5
+                    # "Input/output error" from a UART error condition that
+                    # doesn't clear on its own) - every subsequent read/write
+                    # on this same fd fails identically forever otherwise.
+                    # Close and reopen it so a transient hardware fault gets
+                    # a chance to actually clear, instead of the poll loop
+                    # spinning on a permanently broken descriptor.
+                    round_ok = False
+                    log.error(
+                        "slave %s reg %d: serial port error (%s) - reopening %s",
+                        sc.get("slave_id"), j, e, RTU_SERIAL_PORT,
+                    )
+                    try:
+                        ser.close()
+                    except Exception:
+                        pass
+                    time.sleep(0.5)
+                    try:
+                        ser = _open_serial(cfg)
+                    except Exception as e2:
+                        log.error("failed to reopen %s: %s - RS485 polling stopped", RTU_SERIAL_PORT, e2)
+                        return
+                    break  # this slave's round is already a loss; retry fresh next tick
 
             with _lock:
                 st = _status[i]
