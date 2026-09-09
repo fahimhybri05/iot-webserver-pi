@@ -13,7 +13,7 @@ notify_change()).
 import json
 import threading
 
-FIRMWARE_VERSION = "1.1.3"
+FIRMWARE_VERSION = "1.1.4"
 FIRMWARE_APP_NAME = "PL Connect"
 FIRMWARE_COPYRIGHT = "2026 - PL Connect. All rights reserved. (Raspberry Pi port)"
 

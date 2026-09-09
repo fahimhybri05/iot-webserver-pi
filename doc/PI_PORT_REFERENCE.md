@@ -31,7 +31,7 @@ the two boards. The one place a Pi generation actually mattered: real
 RP1 I/O chip at all — fixed by switching to `rpi-lgpio` (§12), a drop-in
 replacement under the same `import RPi.GPIO` that works on both.
 
-Current version string (`app/state.py::FIRMWARE_VERSION`): **1.1.3**. This
+Current version string (`app/state.py::FIRMWARE_VERSION`): **1.1.4**. This
 field is manually maintained — bump it in the same change whenever
 `app/state.py`'s `build_status_json()` shape, a REST endpoint, or a config
 schema changes, so the dashboard's footer and `/api/status` stay a useful
@@ -206,7 +206,7 @@ into REST/WS/MQTT automatically, same rule the firmware follows.
 ```json
 {
   "ip": "192.168.1.101", "wifi_ip": "", "wifi_connected": false,
-  "version": "1.1.3", "copyright": "...",
+  "version": "1.1.4", "copyright": "...",
   "board_model": "Raspberry Pi 5 Model B Rev 1.0", "board_cpu": "Broadcom BCM2712",
   "relays": [false, false],
   "inputs": [false, ...×10],

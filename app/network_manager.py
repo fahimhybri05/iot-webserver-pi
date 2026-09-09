@@ -50,8 +50,15 @@ def _valid_ipv4(s):
     return bool(s) and bool(_IPV4_RE.match(s))
 
 
-def _run(args):
-    log.info("nmcli %s", " ".join(args))
+def _run(args, level=logging.INFO):
+    # level defaults to INFO so a config-apply command (rare, and a bad
+    # static IP/gateway can drop the Pi off the network - see module
+    # docstring) stays traceable in the service log. The routine 2s
+    # status-poll queries (_query_lan_ip/_query_wifi_ip) pass DEBUG instead
+    # - logging every single one at INFO forever would drown out everything
+    # else in `journalctl -f` for no benefit, since nothing ever needs to
+    # trace a read-only IP lookup after the fact.
+    log.log(level, "nmcli %s", " ".join(args))
     try:
         r = subprocess.run(
             ["nmcli"] + args, capture_output=True, text=True, timeout=15
@@ -108,7 +115,7 @@ def _netmask_to_prefix(mask):
 
 def _query_lan_ip():
     iface = _eth_iface()
-    r = _run(["-g", "IP4.ADDRESS", "device", "show", iface])
+    r = _run(["-g", "IP4.ADDRESS", "device", "show", iface], level=logging.DEBUG)
     if r and r.returncode == 0 and r.stdout.strip():
         return r.stdout.strip().split("|")[0].split("/")[0]
     return "0.0.0.0"
@@ -116,7 +123,7 @@ def _query_lan_ip():
 
 def _query_wifi_ip():
     iface = _wifi_iface()
-    r = _run(["-g", "IP4.ADDRESS", "device", "show", iface])
+    r = _run(["-g", "IP4.ADDRESS", "device", "show", iface], level=logging.DEBUG)
     if r and r.returncode == 0 and r.stdout.strip():
         return r.stdout.strip().split("|")[0].split("/")[0]
     return ""
