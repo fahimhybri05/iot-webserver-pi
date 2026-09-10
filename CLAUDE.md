@@ -11,7 +11,11 @@ This file provides guidance to Claude Code when working with code in this reposi
 ## Non-Negotiable Rules
 
 1. **Always update the version file whenever code changes.**
-   - Location: `VERSION` (adjust this line to match wherever this repo actually tracks version — e.g. `version.py`, `__init__.py`, `setup.cfg`)
+   - Location: `app/state.py::FIRMWARE_VERSION` — the only version string in
+     this repo; it flows into the dashboard footer and every `/api/status`/
+     WebSocket/MQTT payload. Mirror the bump into `doc/PI_PORT_REFERENCE.md`
+     §1 and its `/api/status` example JSON in the same change (both cite the
+     current version literally).
    - Follow Semantic Versioning (`MAJOR.MINOR.PATCH`):
      - `PATCH` — bug fixes, no behavior change
      - `MINOR` — new functionality, backward-compatible
@@ -45,4 +49,39 @@ This file provides guidance to Claude Code when working with code in this reposi
 
 ## Project-Specific Notes
 
-_(Fill in as needed: target Pi model(s), OS/distro, primary firmware purpose, key hardware peripherals, deployment/update mechanism, CI setup.)_
+- **What this is:** Python/Flask port of the ESP32-P4 "PL Connect" firmware
+  (sibling `main/` in the monorepo) — a factory I/O web server / Modbus
+  gateway. Byte-for-byte REST/WebSocket/MQTT API compatible with the
+  firmware so the extracted `web/` dashboard runs unmodified against either
+  backend. Full architecture reference: `doc/PI_PORT_REFERENCE.md` (the
+  living maintainer doc for this repo specifically — keep it in sync, same
+  spirit as rule 1 above).
+- **Target hardware:** Raspberry Pi 4 **and** Pi 5, both — see
+  `doc/PI_PORT_REFERENCE.md` §12 for the one place this ever mattered
+  (`rpi-lgpio`, not real `RPi.GPIO`; real RPi.GPIO cannot address the Pi 5's
+  RP1 I/O chip at all). 40-pin header BCM GPIO numbering is identical
+  across both, so pin maps and driver logic are unmodified between them.
+- **OS/distro:** Raspberry Pi OS **Bookworm or newer**, required for
+  NetworkManager (`network_manager.py` shells out to `nmcli`; does not
+  support the older `dhcpcd` stack) and because Pi 5 has no 32-bit image.
+- **Key hardware peripherals:** 2 relay outputs (DO), 10 digital inputs
+  (DI, with Normal/Counter modes), RS485 half-duplex over the Pi's hardware
+  UART0 (`/dev/serial0`) with a bit-banged GPIO DE/nRE pair (no hardware
+  RS485 mode on this SoC, unlike the ESP32), I2C SSD1306 OLED (device IP
+  display), Ethernet + optional Wi-Fi.
+- **Deployment/update mechanism:** systemd unit `pl-connect.service`
+  (`Type=notify` + `WatchdogSec=30`, runs as root — see the unit file's own
+  comments for the unprivileged alternative), `Restart=always`. In-field
+  updates via the dashboard's `/update` page: password-gated `git fetch` +
+  hard `checkout -B <branch> origin/<branch>` + service restart — **not**
+  an OTA binary flash like the firmware, since this runs from a git
+  checkout. `git pull`/`/update` do **not** reinstall Python dependencies —
+  after any `requirements.txt` change, `venv/bin/pip install -r
+  requirements.txt` is a required manual step post-pull, every time.
+- **CI setup:** none currently. Verification is `python3 -m py_compile` /
+  `node --check` locally plus manual bench-testing on real hardware for
+  anything GPIO/serial/I2C-touching (RPi.GPIO/serial/I2C libraries fall back
+  to no-op stubs off-Pi — see README's "Testing locally" section — so unit
+  tests alone cannot verify hardware-facing behavior; flag explicitly
+  whenever something needs the physical Pi to confirm, per the Testing rule
+  above).

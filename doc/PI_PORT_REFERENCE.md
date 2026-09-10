@@ -31,7 +31,7 @@ the two boards. The one place a Pi generation actually mattered: real
 RP1 I/O chip at all — fixed by switching to `rpi-lgpio` (§12), a drop-in
 replacement under the same `import RPi.GPIO` that works on both.
 
-Current version string (`app/state.py::FIRMWARE_VERSION`): **1.1.5**. This
+Current version string (`app/state.py::FIRMWARE_VERSION`): **1.2.0**. This
 field is manually maintained — bump it in the same change whenever
 `app/state.py`'s `build_status_json()` shape, a REST endpoint, or a config
 schema changes, so the dashboard's footer and `/api/status` stay a useful
@@ -141,13 +141,16 @@ on/off (`gpio_driver.set_relay`), matching the firmware's DO behavior exactly.
           label, scale, unit }
         × up to RS485_MAX_REGS_PER_SLAVE=16
       ] }
-    × up to RS485_MAX_SLAVES=20
+    × up to RS485_MAX_SLAVES=40
   ]
 }
 ```
 
 `save_rs485_config` does a **wholesale replace** of the `slaves` array
-(capped at 20), unlike the firmware's fixed-size NVS slot array which needed
+(capped at 40 — raised from the firmware-inherited 20 once it was confirmed
+this cap was never a real technical limit for the Pi port specifically; see
+§13's "Slave cap raised" entry for the throughput math behind that number),
+unlike the firmware's fixed-size NVS slot array which needed
 an explicit "clear stale slots" step to avoid ghost slaves — a plain JSON
 list has no leftover slots by construction, so that firmware bug class does
 not exist here. `data_type=BIT` is forced server-side whenever
@@ -206,7 +209,7 @@ into REST/WS/MQTT automatically, same rule the firmware follows.
 ```json
 {
   "ip": "192.168.1.101", "wifi_ip": "", "wifi_connected": false,
-  "version": "1.1.5", "copyright": "...",
+  "version": "1.2.0", "copyright": "...",
   "board_model": "Raspberry Pi 5 Model B Rev 1.0", "board_cpu": "Broadcom BCM2712",
   "relays": [false, false],
   "inputs": [false, ...×10],
@@ -534,6 +537,29 @@ general-purpose hardening, not RS485-specific:
   actually exiting. Both `sd_notify` calls are no-ops when `$NOTIFY_SOCKET`
   isn't set, so running the app outside systemd (`PORT=8080 python -m
   app.main`, per README's "Testing locally" section) is unaffected.
+- **Slave cap raised 20 → 40** (`RS485_MAX_SLAVES` in `app/config.py`,
+  `RTU_MAX_SLAVES` in `app.js`). The original 20 came from the ESP32
+  firmware's 24KB NVS partition budget — a real constraint there, not here:
+  this port stores config as plain JSON on a normal filesystem, so the cap
+  was never actually load-bearing for the Pi port. The **real** ceiling is
+  RS485 bus time, not storage or CPU: half-duplex means one request in
+  flight across every slave/register, always, so total poll-round time
+  scales linearly with (slave count × avg registers/slave), while Pi 4/5
+  CPU is nowhere near the bottleneck (each transaction is microseconds of
+  compute; the rest is waiting on serial bytes). Per-register wall time
+  from the actual `modbus_rtu_master.py` timing constants (interframe gap +
+  DE settle/toggle overhead + request/response transmit time + slave
+  turnaround) works out to roughly **~35ms at 9600 baud, ~22ms at 19200**
+  per register for a healthy transaction — both numbers are fixed-overhead
+  dominated, so raising baud further than ~38400 gives diminishing returns.
+  At the new 40-slave ceiling with a typical ~4 registers/slave, that's
+  roughly **5-6s for a full round at 9600 baud** — fine for poll intervals
+  in the several-second range, not for sub-second polling at anywhere near
+  that many slaves. This is a genuine tradeoff to flag whenever helping size
+  a deployment: the cap number itself was never the constraint, the actual
+  bus-time budget always was — don't just raise the cap again without doing
+  this same per-register-time × total-register-count math against the
+  target poll interval first.
 
 ## 14. Known gaps (as of this writing)
 

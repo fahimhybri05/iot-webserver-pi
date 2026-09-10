@@ -69,16 +69,21 @@
 </div>
 
 <div class="sec-hd">
-  <div class="sec-title">RS485 Slaves (up to 20)</div>
+  <div class="sec-title">RS485 Slaves (up to 40)</div>
   <div class="sec-line"></div>
 </div>
 
 <div style="font-family:var(--font-mono);font-size:9px;color:var(--text3);line-height:1.6;padding:2px 0 12px">
   RS485 is half-duplex — one request at a time across all registers on all slaves,
   always. Realistic interval budget grows with total register count (roughly 30-100 ms
-  per register at 9600 baud when healthy) — avoid setting a slave's poll interval far
-  below (its register count &times; ~50 ms), and raise the baud rate if your slaves
-  support it to fit more registers in a shorter cycle.
+  per register at 9600 baud when healthy, less at higher baud) — avoid setting a
+  slave's poll interval far below (its register count &times; ~50 ms), and raise the
+  baud rate if your slaves support it to fit more registers in a shorter cycle.
+  At the new 40-slave ceiling, total round time = (total registers across all
+  enabled slaves) &times; per-register time above — with ~4 registers/slave at
+  9600 baud that's roughly 5-6 seconds for a full round at 40 slaves, so keep
+  poll intervals at several seconds, not sub-second, once you're running anywhere
+  near that many.
 </div>
 
 <div id="rtu-cfg-list"></div>
